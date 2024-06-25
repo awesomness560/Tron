@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://dgwr7vg3s8abl"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_n6aeo"]
+[ext_resource type="Script" path="res://Scripts/Trail.gd" id="2_7fsh1"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_8ern3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g31vh"]
+size = Vector3(0.304108, 0.0942383, 0.297119)
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_10ugb"]
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_n6aeo")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.3, 0, 0, 0, 0.086, 0, 0, 0, 0.3, 0, 0, 0)
+mesh = SubResource("BoxMesh_8ern3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00132751, 0.00219727, 0.000610352)
+shape = SubResource("BoxShape3D_g31vh")
+
+[node name="Trail" type="MeshInstance3D" parent="." node_paths=PackedStringArray("collisionBody")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0.682805)
+mesh = SubResource("RibbonTrailMesh_10ugb")
+script = ExtResource("2_7fsh1")
+collisionBody = NodePath("")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.902893, 0.429865, 0, -0.429865, 0.902893, 0, 0.703105, 1.04884)

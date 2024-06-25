@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://c5wbnasncm64h"]
+
+[ext_resource type="Texture2D" uid="uid://b11uxeqtgnqq0" path="res://addons/godot-prototype-texture/Vector/checker_blue_512x512.svg" id="1_jufpa"]
+[ext_resource type="PackedScene" uid="uid://dgwr7vg3s8abl" path="res://Scenes/player.tscn" id="1_xe6ns"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_r8j8s"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s6xp6"]
+albedo_texture = ExtResource("1_jufpa")
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_jptva"]
+data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(17.375, 0, 0, 0, 17.375, 0, 0, 0, 17.375, 0, 0, 0)
+mesh = SubResource("PlaneMesh_r8j8s")
+surface_material_override/0 = SubResource("StandardMaterial3D_s6xp6")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_jptva")
+
+[node name="Player" parent="." instance=ExtResource("1_xe6ns")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.312462, 0)
