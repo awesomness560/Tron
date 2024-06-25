@@ -1,14 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://dgwr7vg3s8abl"]
+[gd_scene load_steps=8 format=3 uid="uid://dgwr7vg3s8abl"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_n6aeo"]
 [ext_resource type="Script" path="res://Scripts/Trail.gd" id="2_7fsh1"]
+[ext_resource type="PackedScene" uid="uid://wmf2eu0uuhrg" path="res://addons/third-person-camera/third_person_camera/ThirdPersonCamera.tscn" id="3_p1ncs"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_8ern3"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_g31vh"]
 size = Vector3(0.304108, 0.0942383, 0.297119)
 
-[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_10ugb"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2marq"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_uqim3"]
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_n6aeo")
@@ -21,11 +29,22 @@ mesh = SubResource("BoxMesh_8ern3")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00132751, 0.00219727, 0.000610352)
 shape = SubResource("BoxShape3D_g31vh")
 
-[node name="Trail" type="MeshInstance3D" parent="." node_paths=PackedStringArray("collisionBody")]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0.682805)
-mesh = SubResource("RibbonTrailMesh_10ugb")
+[node name="Trail" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.37114e-08, 1.91069e-15, 0, 0, 0.14771)
+material_override = SubResource("StandardMaterial3D_2marq")
+mesh = SubResource("ImmediateMesh_uqim3")
 script = ExtResource("2_7fsh1")
-collisionBody = NodePath("")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.902893, 0.429865, 0, -0.429865, 0.902893, 0, 0.703105, 1.04884)
+transform = Transform3D(1, 0, 0, 0, 0.902893, 0.429865, 0, -0.429865, 0.902893, 0, 2.27011, 4.98395)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[node name="ThirdPersonCamera" parent="." instance=ExtResource("3_p1ncs")]
+distance_from_pivot = 1.5
+current = true
+mouse_follow = true
+
+[connection signal="timeout" from="Timer" to="Trail" method="_on_timer_timeout"]

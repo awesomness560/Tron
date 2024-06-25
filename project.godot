@@ -14,3 +14,7 @@ config/name="TronGame"
 run/main_scene="res://Scenes/node_3d.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/third-person-camera/plugin.cfg")
