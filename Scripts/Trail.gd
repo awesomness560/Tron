@@ -1,20 +1,30 @@
 extends MeshInstance3D
 
-@export var spacing = 10
-
-var points = []
+var points = PackedVector3Array()
 var widths = []
 
 @export var width : float = 0.1
 @export var timeForSpawn : float = 0.1
+@export var collider : CollisionShape3D
 
+var convexShape : ConcavePolygonShape3D
 var oldPos : Vector3
 
 func _ready():
 	oldPos = global_position
-	#draw_line(Vector3.ZERO, Vector3(0, 100, 0), 1)
+	convexShape = collider.shape
 
 func _process(delta):
+	calculateMesh()
+
+func calculateCollisions(point1 : Vector3, point2 : Vector3): #This doesn't work
+	var localPoints = PackedVector3Array()
+	for point in points:
+		localPoints.append(to_local(point))
+	convexShape.set_faces(localPoints)
+	#convexShape.points = localPoints
+
+func calculateMesh():
 	if (oldPos - global_position).length() > timeForSpawn:
 		appendPoint()
 		oldPos = global_position
@@ -36,18 +46,27 @@ func _process(delta):
 			var t1 = t
 			
 			mesh.surface_set_uv(Vector2(t0, 0))
-			mesh.surface_add_vertex(to_local(points[i] + currWidth))
+			var localPoint1 : Vector3 = to_local(points[i] + currWidth)
+			mesh.surface_add_vertex(localPoint1)
+			
 			mesh.surface_set_uv(Vector2(t1, 1))
-			mesh.surface_add_vertex(to_local(points[i] - currWidth))
+			var localPoint2 : Vector3 = to_local(points[i] - currWidth)
+			mesh.surface_add_vertex(localPoint2)
+			
+			calculateCollisions(localPoint1, localPoint2) #Doesn't work
 		
 		mesh.surface_end()
-		
 
 func appendPoint():
 	points.append(global_position)
 	widths.append([
 		global_transform.basis.z * width
 	])
+
+#func drawCollisions():
+	#var shape : ConvexPolygonShape3D = ConvexPolygonShape3D.new()
+	#for pointPos in points:
+		#
 
 #
 #func draw_line(pointA : Vector3, pointB : Vector3, thickness : float = 2.0):
