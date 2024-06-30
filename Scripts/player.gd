@@ -1,33 +1,64 @@
 extends CharacterBody3D
 
+@export var gravity : float = -20.0
+@export var steeringLimit : float = 10.0
+@export var wheelBase : float = 2.0
+@export var enginePower : float = 6.0
+@export var braking : float = -9.0
+@export var friction : float = -2.0
+@export var drag : float = -2.0
+@export var visuals : Node3D
 
-const SPEED = 5.0
-const JUMP_VELOCITY = 4.5
-
-# Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+var acceleration : Vector3 = Vector3.ZERO
+var steerAngle : float = 0.0
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _physics_process(delta):
-	# Add the gravity.
-	if not is_on_floor():
-		velocity.y -= gravity * delta
-
-	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
-
+	if is_on_floor():
+		get_input()
+		apply_friction(delta)
+		calculate_steering(delta)
+	
+	acceleration.y = gravity
+	velocity += acceleration * delta
 	move_and_slide()
+
+func apply_friction(delta):
+	if velocity.length() < 0.2 and acceleration.length() == 0:
+		velocity.x = 0
+		velocity.y = 0
+	var frictionForce = velocity * friction * delta
+	var dragForce = velocity * velocity.length() * drag * delta
+	acceleration += dragForce * frictionForce
+
+func calculate_steering(delta):
+	var rearWheel := transform.origin + transform.basis.z * wheelBase / 2.0
+	var frontWheel := transform.origin - transform.basis.z * wheelBase / 2.0
+	rearWheel += velocity * delta
+	frontWheel += velocity.rotated(transform.basis.y, steerAngle) * delta
+	var newHeading = rearWheel.direction_to(frontWheel)
+	
+	var d := newHeading.dot(velocity.normalized())
+	if d > 0:
+		velocity = newHeading * velocity.length()
+	elif d < 0:
+		velocity = -newHeading * velocity.length()
+	look_at(transform.origin + newHeading, transform.basis.y)
+
+func get_input():
+	var turn = Input.get_action_strength("steer_left")
+	turn -= Input.get_action_strength("steer_right")
+	steerAngle = turn * deg_to_rad(steeringLimit)
+	visuals.rotation.x = steerAngle
+	
+	acceleration = Vector3.ZERO
+	if Input.is_action_pressed("accelerate"):
+		acceleration = -transform.basis.z * enginePower
+	if Input.is_action_pressed("brake"):
+		acceleration = -transform.basis.z * braking
+
+
+func _on_area_3d_body_entered(body):
+	print(body)
