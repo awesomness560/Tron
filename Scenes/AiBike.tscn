@@ -1,10 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://dgwr7vg3s8abl"]
+[gd_scene load_steps=10 format=3 uid="uid://bp0e01s4h4rdf"]
 
-[ext_resource type="Script" path="res://Scripts/player.gd" id="1_n6aeo"]
-[ext_resource type="Script" path="res://Scripts/Trail.gd" id="2_7fsh1"]
-[ext_resource type="Shader" path="res://Assets/Shaders/tron_line.gdshader" id="2_572yc"]
-[ext_resource type="PackedScene" uid="uid://wmf2eu0uuhrg" path="res://addons/third-person-camera/third_person_camera/ThirdPersonCamera.tscn" id="3_p1ncs"]
-[ext_resource type="PackedScene" uid="uid://bm0h4515faxhm" path="res://Assets/Models/light_bike.glb" id="5_fcudt"]
+[ext_resource type="Script" path="res://Scripts/AiBike.gd" id="1_ddjx2"]
+[ext_resource type="Shader" path="res://Assets/Shaders/tron_line.gdshader" id="2_mi7tc"]
+[ext_resource type="Script" path="res://Scripts/Trail.gd" id="3_833gx"]
+[ext_resource type="PackedScene" uid="uid://bm0h4515faxhm" path="res://Assets/Models/light_bike.glb" id="5_wgs7g"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_8ern3"]
 
@@ -13,7 +12,7 @@ size = Vector3(0.0497232, 0.0701904, 0.180969)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ubw3x"]
 render_priority = 0
-shader = ExtResource("2_572yc")
+shader = ExtResource("2_mi7tc")
 shader_parameter/outline_width = 5.0
 shader_parameter/base_color = Color(0, 4, 4, 1)
 
@@ -22,10 +21,9 @@ shader_parameter/base_color = Color(0, 4, 4, 1)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_bp3qu"]
 backface_collision = true
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("visuals")]
+[node name="AIBike" type="CharacterBody3D" node_paths=PackedStringArray("visuals")]
 collision_layer = 3
-script = ExtResource("1_n6aeo")
-steeringLimit = 50.0
+script = ExtResource("1_ddjx2")
 visuals = NodePath("light_bike")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
@@ -41,7 +39,7 @@ shape = SubResource("BoxShape3D_g31vh")
 transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 0, 0, 0.109516)
 material_override = SubResource("ShaderMaterial_ubw3x")
 mesh = SubResource("ImmediateMesh_uqim3")
-script = ExtResource("2_7fsh1")
+script = ExtResource("3_833gx")
 collider = NodePath("StaticBody3D/CollisionShape3D")
 bikeMesh = NodePath("../light_bike")
 
@@ -54,20 +52,11 @@ monitorable = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Trail/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_bp3qu")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.902893, 0.429865, 0, -0.429865, 0.902893, 0, 2.27011, 4.98395)
-
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.3
 autostart = true
 
-[node name="ThirdPersonCamera" parent="." instance=ExtResource("3_p1ncs")]
-distance_from_pivot = 0.5
-camera_speed = 1.0
-current = true
-mouse_follow = true
-
-[node name="light_bike" parent="." instance=ExtResource("5_fcudt")]
+[node name="light_bike" parent="." instance=ExtResource("5_wgs7g")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 
 [connection signal="body_entered" from="Trail/StaticBody3D" to="Trail" method="_on_static_body_3d_body_entered"]

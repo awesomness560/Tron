@@ -17,9 +17,10 @@ func _ready():
 
 func _process(delta):
 	calculateMesh()
+	calculateCollisions()
 	rotation = bikeMesh.rotation
 	rotation.x += 80
-
+	
 func calculateCollisions():
 	var localPoints = PackedVector3Array()
 	for point in points:
@@ -88,3 +89,7 @@ func appendPoint():
 		#for i in get_children():
 			#i.queue_free()
 	#create_multiple_convex_collisions()
+
+
+func _on_static_body_3d_body_entered(body):
+	print(get_parent().name+" "+body.name)

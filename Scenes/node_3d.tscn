@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://c5wbnasncm64h"]
+[gd_scene load_steps=8 format=3 uid="uid://c5wbnasncm64h"]
 
 [ext_resource type="Texture2D" uid="uid://dxnqf4pya11dj" path="res://addons/godot-prototype-texture/PNG/checker_blue_512x512.png" id="1_cf3j0"]
 [ext_resource type="PackedScene" uid="uid://dgwr7vg3s8abl" path="res://Scenes/player.tscn" id="1_xe6ns"]
+[ext_resource type="PackedScene" uid="uid://bp0e01s4h4rdf" path="res://Scenes/AiBike.tscn" id="3_hrdr3"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_r8j8s"]
 
@@ -10,6 +11,9 @@ albedo_texture = ExtResource("1_cf3j0")
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_jptva"]
 data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2xhvt"]
+size = Vector3(2.2998, 1, 1)
 
 [node name="Node3D" type="Node3D"]
 
@@ -23,5 +27,12 @@ surface_material_override/0 = SubResource("StandardMaterial3D_rise8")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_jptva")
 
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.108887, 0, -1.34166)
+shape = SubResource("BoxShape3D_2xhvt")
+
 [node name="Player" parent="." instance=ExtResource("1_xe6ns")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.312462, 0)
+
+[node name="AIBike" parent="." instance=ExtResource("3_hrdr3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.01734, 0, -0.459065)
