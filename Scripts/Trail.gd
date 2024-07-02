@@ -7,14 +7,15 @@ var widths = []
 @export var timeForSpawn : float = 0.1
 @export var collider : CollisionShape3D
 @export var bikeMesh : Node3D
-
+@export var trailColor : Color = Color8(0,1020,1020,255)
 var concaveShape : ConcavePolygonShape3D
 var oldPos : Vector3
 
 func _ready():
 	oldPos = global_position
 	concaveShape = collider.shape
-
+	material_override.set_shader_parameter("base_color",trailColor)
+	
 func _process(delta):
 	calculateMesh()
 	calculateCollisions()
@@ -92,4 +93,5 @@ func appendPoint():
 
 
 func _on_static_body_3d_body_entered(body):
-	print(get_parent().name+" "+body.name)
+	if !(get_parent().name == "Player"):
+		print(get_parent().name+" "+body.name)

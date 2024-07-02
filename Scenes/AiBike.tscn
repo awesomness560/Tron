@@ -42,6 +42,7 @@ mesh = SubResource("ImmediateMesh_uqim3")
 script = ExtResource("3_833gx")
 collider = NodePath("StaticBody3D/CollisionShape3D")
 bikeMesh = NodePath("../light_bike")
+trailColor = Color(4, 0.37, 4, 1)
 
 [node name="StaticBody3D" type="Area3D" parent="Trail"]
 transform = Transform3D(1, 0, 0, 0, 1, 8.35187e-23, 0, 8.35187e-23, 1, 0.158094, 6.9105e-09, 4.44089e-16)
