@@ -8,14 +8,23 @@ extends CharacterBody3D
 @export var friction : float = -2.0
 @export var drag : float = -2.0
 @export var visuals : Node3D
+@export var camera : ThirdPersonCamera
 
 var acceleration : Vector3 = Vector3.ZERO
 var steerAngle : float = 0.0
 
+func _enter_tree():
+	set_multiplayer_authority(str(name).to_int()) #Basic multiplayer setup (requires id to be set as name before spawn)
+
 func _ready():
+	camera.current = is_multiplayer_authority()
+	if not is_multiplayer_authority(): return #If we are not the player, don't run this code
+	
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _physics_process(delta):
+	if not is_multiplayer_authority(): return #If we are not the player, don't run this code
+	
 	if is_on_floor():
 		get_input()
 		apply_friction(delta)
