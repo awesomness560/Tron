@@ -18,7 +18,7 @@ func _ready():
 func _process(delta):
 	calculateMesh()
 	calculateCollisions()
-	rotation = bikeMesh.rotation
+	rotation = bikeMesh.rotation #FIXME: You shuld not do this plz
 	rotation.x += 80
 	
 func calculateCollisions():
