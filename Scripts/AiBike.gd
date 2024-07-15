@@ -17,7 +17,7 @@ func _ready():
 
 func _physics_process(delta):
 	if is_on_floor():
-		#get_input()
+		get_input()
 		apply_friction(delta)
 		calculate_steering(delta)
 		acceleration = Vector3.ZERO
@@ -49,13 +49,6 @@ func calculate_steering(delta):
 	look_at(transform.origin + newHeading, transform.basis.y)
 
 func get_input():
-	var turn = Input.get_action_strength("steer_left")
-	turn -= Input.get_action_strength("steer_right")
+	var turn = 8
 	steerAngle = turn * deg_to_rad(steeringLimit)
 	visuals.rotation.x = steerAngle
-	
-	acceleration = Vector3.ZERO
-	if Input.is_action_pressed("accelerate"):
-		acceleration = -transform.basis.z * enginePower
-	if Input.is_action_pressed("brake"):
-		acceleration = -transform.basis.z * braking

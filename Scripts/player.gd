@@ -73,10 +73,6 @@ func get_input():
 	if Input.is_action_pressed("brake"):
 		acceleration = -transform.basis.z * braking
 
-
-func _on_area_3d_body_entered(body):
-	print(body)
-
 func align_with_y(xform, new_y):
 	xform.basis.y = new_y
 	xform.basis.x = -xform.basis.z.cross(new_y)
@@ -86,4 +82,3 @@ func align_with_y(xform, new_y):
 
 func _on_timer_timeout():
 	trail.curve.add_point(trail.global_position,trail.curve.get_point_position(-1))
-	print(trail.position)
