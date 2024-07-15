@@ -8,12 +8,9 @@ extends CharacterBody3D
 @export var friction : float = -2.0
 @export var drag : float = -2.0
 @export var visuals : Node3D
-<<<<<<< Updated upstream
-
-=======
 @export var camera : ThirdPersonCamera
 @export var trail : Node3D
->>>>>>> Stashed changes
+
 var acceleration : Vector3 = Vector3.ZERO
 var steerAngle : float = 0.0
 
@@ -21,14 +18,11 @@ func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _physics_process(delta):
-<<<<<<< Updated upstream
-=======
 	if not is_multiplayer_authority(): return #If we are not the player, don't run this code
 	if self.position.y < -70:
 		self.position = Vector3(0,0,0)
 		self.velocity = Vector3(0,0,0)
 		
->>>>>>> Stashed changes
 	if is_on_floor():
 		get_input()
 		apply_friction(delta)
