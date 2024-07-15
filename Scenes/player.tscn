@@ -1,9 +1,12 @@
+<<<<<<< Updated upstream
 [gd_scene load_steps=11 format=3 uid="uid://dgwr7vg3s8abl"]
+=======
+[gd_scene load_steps=9 format=3 uid="uid://dgwr7vg3s8abl"]
+>>>>>>> Stashed changes
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_n6aeo"]
-[ext_resource type="Script" path="res://Scripts/Trail.gd" id="2_7fsh1"]
-[ext_resource type="Shader" path="res://Assets/Shaders/tron_line.gdshader" id="2_572yc"]
 [ext_resource type="PackedScene" uid="uid://wmf2eu0uuhrg" path="res://addons/third-person-camera/third_person_camera/ThirdPersonCamera.tscn" id="3_p1ncs"]
+[ext_resource type="Material" uid="uid://yiewyev371hf" path="res://Assets/Materials/Glow.tres" id="4_kb5l6"]
 [ext_resource type="PackedScene" uid="uid://bm0h4515faxhm" path="res://Assets/Models/light_bike.glb" id="5_fcudt"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_8ern3"]
@@ -11,6 +14,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_g31vh"]
 size = Vector3(0.0497232, 0.0701904, 0.180969)
 
+<<<<<<< Updated upstream
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ubw3x"]
 render_priority = 0
 shader = ExtResource("2_572yc")
@@ -23,10 +27,35 @@ shader_parameter/base_color = Color(0, 4, 4, 1)
 backface_collision = true
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("visuals")]
+=======
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_xxbfm"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("light_bike:rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[sub_resource type="Curve3D" id="Curve3D_yfa0c"]
+resource_local_to_scene = true
+bake_interval = 0.01
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("visuals", "camera", "trail")]
+>>>>>>> Stashed changes
 collision_layer = 3
 script = ExtResource("1_n6aeo")
+gravity = -10.0
 steeringLimit = 50.0
+friction = -4.0
 visuals = NodePath("light_bike")
+<<<<<<< Updated upstream
+=======
+camera = NodePath("ThirdPersonCamera")
+trail = NodePath("Trail2")
+>>>>>>> Stashed changes
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.3, 0, 0, 0, 0.086, 0, 0, 0, 0.3, 0, 0, 0)
@@ -37,6 +66,7 @@ mesh = SubResource("BoxMesh_8ern3")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000923764, 0.03302, -0.00149535)
 shape = SubResource("BoxShape3D_g31vh")
 
+<<<<<<< Updated upstream
 [node name="Trail" type="MeshInstance3D" parent="." node_paths=PackedStringArray("collider", "bikeMesh")]
 transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 0, 0, 0.109516)
 material_override = SubResource("ShaderMaterial_ubw3x")
@@ -57,18 +87,53 @@ shape = SubResource("ConcavePolygonShape3D_bp3qu")
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.902893, 0.429865, 0, -0.429865, 0.902893, 0, 2.27011, 4.98395)
 
+=======
+>>>>>>> Stashed changes
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.3
+wait_time = 0.095
 autostart = true
 
 [node name="ThirdPersonCamera" parent="." instance=ExtResource("3_p1ncs")]
 distance_from_pivot = 0.5
-camera_speed = 1.0
+camera_speed = 0.5
 current = true
 mouse_follow = true
 
 [node name="light_bike" parent="." instance=ExtResource("5_fcudt")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 
+<<<<<<< Updated upstream
 [connection signal="body_entered" from="Trail/StaticBody3D" to="Trail" method="_on_static_body_3d_body_entered"]
 [connection signal="timeout" from="Timer" to="Trail" method="_on_timer_timeout"]
+=======
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_xxbfm")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+
+[node name="Trail2" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0774348)
+curve = SubResource("Curve3D_yfa0c")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0906009)
+material_override = ExtResource("4_kb5l6")
+calculate_tangents = false
+use_collision = true
+collision_layer = 0
+polygon = PackedVector2Array(0, 0, -0.0189695, 0.0483339)
+mode = 2
+path_node = NodePath("../Trail2")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 0.0
+path_rotation = 1
+path_local = true
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = true
+smooth_faces = true
+material = ExtResource("4_kb5l6")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+>>>>>>> Stashed changes

@@ -26,7 +26,8 @@ func calculateCollisions():
 	var localPoints = PackedVector3Array()
 	for point in points:
 		localPoints.append(to_local(point))
-	concaveShape.set_faces(localPoints)
+	if localPoints.size() %3 == 0:
+		concaveShape.set_faces(localPoints)
 
 #func calculateCollisions(): #This doesn't work
 	#var localPoints = PackedVector3Array()
@@ -87,7 +88,7 @@ func appendPoint():
 #func _on_timer_timeout():
 	##calculateCollisions()
 	#if get_child_count() > 0:
-		#for i in get_children():
+		#for i in get_child4ren():
 			#i.queue_free()
 	#create_multiple_convex_collisions()
 
