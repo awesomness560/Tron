@@ -55,6 +55,7 @@ func calculateMesh():
 		oldPos = global_position
 	
 		mesh.clear_surfaces()
+		
 		#If there are no more than two points, don't render it
 		if points.size() < 2:
 			return
@@ -83,8 +84,15 @@ func calculateMesh():
 
 func _on_area_3d_body_entered(body):
 	if body != parent:
-		self.visible = false
-
+		body.Respawn()
+		print(body.name)
 
 func _on_timer_timeout():
 	self.visible = true
+
+func _delete_trail():
+	points.clear()
+	widths.clear()
+	mesh.clear_surfaces()
+	collision.shape.set_faces(PackedVector3Array())
+		

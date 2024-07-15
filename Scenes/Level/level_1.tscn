@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://df37sv6gd8nwp"]
+[gd_scene load_steps=11 format=3 uid="uid://df37sv6gd8nwp"]
 
 [ext_resource type="Texture2D" uid="uid://dxnqf4pya11dj" path="res://addons/godot-prototype-texture/PNG/checker_blue_512x512.png" id="1_whnn0"]
 [ext_resource type="PackedScene" uid="uid://bp0e01s4h4rdf" path="res://Scenes/AiBike.tscn" id="2_g7gob"]
+[ext_resource type="Material" uid="uid://yiewyev371hf" path="res://Assets/Materials/Glow.tres" id="3_hnbxa"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_d6vx5"]
 
@@ -13,6 +14,18 @@ data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dcra8"]
 size = Vector3(2.2998, 1, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_0f2qv"]
+material = ExtResource("3_hnbxa")
+left_to_right = 2.0
+size = Vector3(5, 8, 3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_l73im"]
+material = ExtResource("3_hnbxa")
+size = Vector3(15, 0.75, 3)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_spl8q"]
+points = PackedVector3Array(7.5, 4, 1.5, 7.5, 4, -1.5, -2.5, -4, 1.5, 2.5, -4, 1.5, 2.5, -4, -1.5, -2.5, -4, -1.5)
 
 [node name="Level1" type="Node3D"]
 
@@ -33,22 +46,24 @@ shape = SubResource("BoxShape3D_dcra8")
 [node name="AIBike" parent="." instance=ExtResource("2_g7gob")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.316216, 0, -0.0223116)
 
-[node name="AIBike2" parent="." node_paths=PackedStringArray("visuals") instance=ExtResource("2_g7gob")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8369, 0, -0.0223116)
+[node name="AIBike2" parent="." node_paths=PackedStringArray("visuals", "trail") instance=ExtResource("2_g7gob")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.68378, 0, -0.0223116)
+enginePower = 6.0
 visuals = NodePath("../AIBike/light_bike")
+trail = NodePath("../AIBike/Trail2")
+AItype = "Straight"
 
-[node name="AIBike3" parent="." node_paths=PackedStringArray("visuals") instance=ExtResource("2_g7gob")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.70179, 0, -0.0223116)
-visuals = NodePath("../AIBike/light_bike")
+[node name="Ramp" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2.47153, 13)
 
-[node name="AIBike4" parent="." node_paths=PackedStringArray("visuals") instance=ExtResource("2_g7gob")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.70179, 0, 1.70985)
-visuals = NodePath("../AIBike/light_bike")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ramp"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -3.66819, -15.4342)
+mesh = SubResource("PrismMesh_0f2qv")
 
-[node name="AIBike5" parent="." node_paths=PackedStringArray("visuals") instance=ExtResource("2_g7gob")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.333268, 0, 1.70985)
-visuals = NodePath("../AIBike/light_bike")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ramp/MeshInstance3D"]
+transform = Transform3D(0.997896, 0, 0, 0, 0.997896, 0, 0, 0, 0.997896, -4, -1.7, -1.74846e-07)
+mesh = SubResource("BoxMesh_l73im")
 
-[node name="AIBike6" parent="." node_paths=PackedStringArray("visuals") instance=ExtResource("2_g7gob")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.66673, 0, 1.70985)
-visuals = NodePath("../AIBike/light_bike")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ramp"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -3.66819, -15.4342)
+shape = SubResource("ConvexPolygonShape3D_spl8q")

@@ -16,13 +16,15 @@ var steerAngle : float = 0.0
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-
+func Respawn():
+	self.position = Vector3(0,0,0)
+	self.velocity = Vector3(0,0,0)
+	trail._delete_trail()
+	
 func _physics_process(delta):
 	if not is_multiplayer_authority(): return #If we are not the player, don't run this code
 	if self.position.y < -70:
-		self.position = Vector3(0,0,0)
-		self.velocity = Vector3(0,0,0)
-		
+		Respawn()
 	if is_on_floor():
 		get_input()
 		apply_friction(delta)
@@ -78,7 +80,3 @@ func align_with_y(xform, new_y):
 	xform.basis.x = -xform.basis.z.cross(new_y)
 	xform.basis = xform.basis.orthonormalized()
 	return xform
-
-
-func _on_timer_timeout():
-	trail.curve.add_point(trail.global_position,trail.curve.get_point_position(-1))
