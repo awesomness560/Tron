@@ -15,6 +15,10 @@ run/main_scene="res://Scenes/Multiplayer/main_steam_menu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GlobalSteam="*res://Scenes/Multiplayer/steam.tscn"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/third-person-camera/plugin.cfg")

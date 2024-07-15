@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cknh8xmrwk3o" path="res://Scenes/Multiplayer/game_spawner.tscn" id="1_p438x"]
 [ext_resource type="PackedScene" uid="uid://72p0fe2ywdqc" path="res://Scenes/Multiplayer/player_spawner.tscn" id="2_if8xl"]
 [ext_resource type="PackedScene" uid="uid://d4fv1r0rtvnhx" path="res://Scenes/Multiplayer/steam_ui.tscn" id="3_8nxmy"]
-[ext_resource type="PackedScene" uid="uid://bcvcijcet6ueq" path="res://Scenes/Level/DemoTracks/Mcguffin.tscn" id="4_hmq4b"]
+[ext_resource type="PackedScene" uid="uid://c4kweamq3q023" path="res://Scenes/Level/level_1.tscn" id="4_h2cef"]
 
 [node name="MainSteamMenu" type="Node"]
 
@@ -14,4 +14,4 @@
 [node name="SteamUI" parent="." node_paths=PackedStringArray("playerSpawner", "gameSpawner") instance=ExtResource("3_8nxmy")]
 playerSpawner = NodePath("../PlayerSpawner")
 gameSpawner = NodePath("../GameSpawner")
-level1 = ExtResource("4_hmq4b")
+level1 = ExtResource("4_h2cef")
