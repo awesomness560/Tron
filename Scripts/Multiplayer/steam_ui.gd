@@ -20,7 +20,9 @@ func host():
 	peer.create_lobby(SteamMultiplayerPeer.LOBBY_TYPE_PUBLIC)
 	multiplayer.multiplayer_peer = peer
 	
-	ms.spawn(testLevel)
+	#ms.spawn(testLevel)
+	var level = testLevel.instantiate()
+	add_child(level)
 	#gameSpawner.spawn(level1)
 
 func spawnLevel(data : PackedScene):

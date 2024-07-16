@@ -14,10 +14,13 @@ extends CharacterBody3D
 var acceleration : Vector3 = Vector3.ZERO
 var steerAngle : float = 0.0
 
+func _enter_tree():
+	set_multiplayer_authority(str(name).to_int())
+
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	set_multiplayer_authority(int(str(name)))
-
+	
+	camera.current = is_multiplayer_authority()
 
 func Respawn():
 	self.position = Vector3(0,0,0)
