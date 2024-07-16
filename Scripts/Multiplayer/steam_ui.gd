@@ -4,11 +4,14 @@ var peer : SteamMultiplayerPeer = SteamMultiplayerPeer.new()
 
 @export var lobbyVBox : VBoxContainer
 @export var lobbyLineEdit : LineEdit
-@export var playerSpawner : PlayerSpawner
-@export var gameSpawner : GameSpawner
+#@export var playerSpawner : PlayerSpawner
+#@export var gameSpawner : GameSpawner
+@export var ms : MultiplayerSpawner
 @export var level1 : PackedScene
+@export var testLevel : PackedScene
 
 func _ready():
+	ms.spawn_function = spawnLevel
 	peer.lobby_created.connect(onLobbyCreated)
 	Steam.lobby_match_list.connect(onLobbyMatchList)
 	openLobbyList()
@@ -17,7 +20,12 @@ func host():
 	peer.create_lobby(SteamMultiplayerPeer.LOBBY_TYPE_PUBLIC)
 	multiplayer.multiplayer_peer = peer
 	
-	gameSpawner.spawn(level1)
+	ms.spawn(testLevel)
+	#gameSpawner.spawn(level1)
+
+func spawnLevel(data : PackedScene):
+	var a = data.instantiate()
+	return a
 
 func join(id : int):
 	peer.connect_lobby(id)
@@ -29,12 +37,14 @@ func onLobbyCreated(connect, id):
 		GlobalSteam.lobbyId = id
 		var lobbyId = GlobalSteam.lobbyId
 		Steam.setLobbyData(lobbyId, "name", str(Steam.getPersonaName() + "'s Lobby"))
+		Steam.setLobbyData(lobbyId, "mode", "Tron01")
 		Steam.setLobbyJoinable(lobbyId, true)
 		print(lobbyId)
 		
 		#Get rid of the main menu
-		playerSpawner.startGame()
-		queue_free()
+		#playerSpawner.startGame()
+		#queue_free()
+		hide()
 
 func onLobbyMatchList(lobbies):
 	for lobby in lobbies:
@@ -50,6 +60,7 @@ func onLobbyMatchList(lobbies):
 
 func openLobbyList():
 	Steam.addRequestLobbyListDistanceFilter(Steam.LOBBY_DISTANCE_FILTER_WORLDWIDE)
+	Steam.addRequestLobbyListStringFilter("mode", "Tron01", Steam.LOBBY_COMPARISON_EQUAL)
 	Steam.requestLobbyList()
 
 func _on_refresh_pressed():

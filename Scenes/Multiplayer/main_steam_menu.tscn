@@ -1,17 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://de6vdnmuiymg5"]
+[gd_scene load_steps=4 format=3 uid="uid://de6vdnmuiymg5"]
 
-[ext_resource type="PackedScene" uid="uid://cknh8xmrwk3o" path="res://Scenes/Multiplayer/game_spawner.tscn" id="1_p438x"]
-[ext_resource type="PackedScene" uid="uid://72p0fe2ywdqc" path="res://Scenes/Multiplayer/player_spawner.tscn" id="2_if8xl"]
 [ext_resource type="PackedScene" uid="uid://d4fv1r0rtvnhx" path="res://Scenes/Multiplayer/steam_ui.tscn" id="3_8nxmy"]
+[ext_resource type="PackedScene" uid="uid://dyqqea4pychm1" path="res://Scenes/Level/level.tscn" id="3_jig20"]
 [ext_resource type="PackedScene" uid="uid://bcvcijcet6ueq" path="res://Scenes/Level/DemoTracks/Mcguffin.tscn" id="4_6pq06"]
 
 [node name="MainSteamMenu" type="Node"]
 
-[node name="GameSpawner" parent="." instance=ExtResource("1_p438x")]
-
-[node name="PlayerSpawner" parent="." instance=ExtResource("2_if8xl")]
-
-[node name="SteamUI" parent="." node_paths=PackedStringArray("playerSpawner", "gameSpawner") instance=ExtResource("3_8nxmy")]
-playerSpawner = NodePath("../PlayerSpawner")
-gameSpawner = NodePath("../GameSpawner")
+[node name="SteamUI" parent="." node_paths=PackedStringArray("ms") instance=ExtResource("3_8nxmy")]
+ms = NodePath("../MultiplayerSpawner")
 level1 = ExtResource("4_6pq06")
+testLevel = ExtResource("3_jig20")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("..")
