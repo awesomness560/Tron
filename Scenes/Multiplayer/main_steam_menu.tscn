@@ -1,16 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://de6vdnmuiymg5"]
+[gd_scene load_steps=2 format=3 uid="uid://de6vdnmuiymg5"]
 
 [ext_resource type="PackedScene" uid="uid://d4fv1r0rtvnhx" path="res://Scenes/Multiplayer/steam_ui.tscn" id="3_8nxmy"]
-[ext_resource type="PackedScene" uid="uid://dyqqea4pychm1" path="res://Scenes/Level/level.tscn" id="3_jig20"]
-[ext_resource type="PackedScene" uid="uid://bcvcijcet6ueq" path="res://Scenes/Level/DemoTracks/Mcguffin.tscn" id="4_6pq06"]
 
 [node name="MainSteamMenu" type="Node"]
 
 [node name="SteamUI" parent="." node_paths=PackedStringArray("ms") instance=ExtResource("3_8nxmy")]
 ms = NodePath("../MultiplayerSpawner")
-level1 = ExtResource("4_6pq06")
-testLevel = ExtResource("3_jig20")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://Scenes/Level/level.tscn")
-spawn_path = NodePath("..")
+spawn_path = NodePath(".")

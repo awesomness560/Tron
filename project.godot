@@ -20,9 +20,14 @@ config/icon="res://icon.svg"
 
 GlobalSteam="*res://Scenes/Multiplayer/steam.tscn"
 
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/third-person-camera/plugin.cfg")
+enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/third-person-camera/plugin.cfg")
 
 [input]
 

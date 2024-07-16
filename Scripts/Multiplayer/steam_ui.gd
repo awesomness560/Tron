@@ -4,6 +4,8 @@ var peer : SteamMultiplayerPeer = SteamMultiplayerPeer.new()
 
 @export var lobbyVBox : VBoxContainer
 @export var lobbyLineEdit : LineEdit
+@export var lobbyMenu : Control
+@export var joinLobbyMenu : Control
 #@export var playerSpawner : PlayerSpawner
 #@export var gameSpawner : GameSpawner
 @export var ms : MultiplayerSpawner
@@ -35,9 +37,22 @@ func join(id : int):
 	peer.connect_lobby(id)
 	multiplayer.multiplayer_peer = peer
 	GlobalSteam.lobbyId = id
-	hide()
+	#hide()
+	joinLobbyMenu.hide()
+	lobbyMenu.show()
 	#var level = testLevel.instantiate()
 	#add_child(level)
+
+func leaveLobby() -> void:
+	#If in a lobby, leave it
+	if GlobalSteam.lobbyId != 0:
+		#Send leave request to steam
+		Steam.leaveLobby(GlobalSteam.lobbyId)
+		#Wipe current lobby id from our device
+		GlobalSteam.lobbyId = 0
+		#TODO: Show main menu after this
+		lobbyMenu.hide()
+		joinLobbyMenu.show()
 
 func onLobbyCreated(connect, id):
 	if connect:
@@ -56,7 +71,9 @@ func onLobbyCreated(connect, id):
 		#Get rid of the main menu
 		#playerSpawner.startGame()
 		#queue_free()
-		hide()
+		#hide()
+		joinLobbyMenu.hide()
+		lobbyMenu.show()
 
 func onLobbyMatchList(lobbies):
 	for lobby in lobbies:
