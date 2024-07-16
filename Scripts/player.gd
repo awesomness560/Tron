@@ -16,6 +16,9 @@ var steerAngle : float = 0.0
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	set_multiplayer_authority(int(str(name)))
+
+
 func Respawn():
 	self.position = Vector3(0,0,0)
 	self.velocity = Vector3(0,0,0)

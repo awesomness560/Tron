@@ -12,4 +12,5 @@ level1 = ExtResource("4_6pq06")
 testLevel = ExtResource("3_jig20")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Scenes/Level/level.tscn")
 spawn_path = NodePath("..")
