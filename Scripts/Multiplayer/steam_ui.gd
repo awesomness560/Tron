@@ -46,6 +46,11 @@ func onLobbyCreated(connect, id):
 		Steam.setLobbyData(lobbyId, "name", str(Steam.getPersonaName() + "'s Lobby"))
 		Steam.setLobbyData(lobbyId, "mode", "Tron01")
 		Steam.setLobbyJoinable(lobbyId, true)
+		
+		# Allow P2P connections to fallback to being relayed through Steam if needed
+		var set_relay: bool = Steam.allowP2PPacketRelay(true)
+		print("Allowing Steam to be relay backup: %s" % set_relay)
+		
 		print(lobbyId)
 		
 		#Get rid of the main menu
