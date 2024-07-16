@@ -36,11 +36,8 @@ shape = SubResource("BoxShape3D_g31vh")
 wait_time = 1.166
 autostart = true
 
-[node name="light_bike" parent="." instance=ExtResource("5_wgs7g")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
-
-[node name="Trail2" type="MeshInstance3D" parent="." node_paths=PackedStringArray("collision", "bikeMesh", "parent")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0859463)
+[node name="Trail2" type="MeshInstance3D" parent="." node_paths=PackedStringArray("collision", "bikeMesh", "parent", "trailSpawnNode")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0118874, 0.0859463)
 material_override = ExtResource("4_rsthi")
 mesh = SubResource("ArrayMesh_watfq")
 script = ExtResource("5_3fhbv")
@@ -48,6 +45,7 @@ collision = NodePath("Area3D/CollisionShape3D2")
 bikeMesh = NodePath("../light_bike")
 parent = NodePath("..")
 trailColor = Color(0.594559, 0, 0.254643, 1)
+trailSpawnNode = NodePath("../light_bike/TrailSpawner")
 
 [node name="Area3D" type="Area3D" parent="Trail2"]
 disable_mode = 1
@@ -60,6 +58,12 @@ monitorable = false
 shape = SubResource("ConcavePolygonShape3D_jq0w6")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
+
+[node name="light_bike" parent="." instance=ExtResource("5_wgs7g")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="TrailSpawner" type="Node3D" parent="light_bike"]
+transform = Transform3D(1, 2.68658e-16, -8.74228e-08, -3.55271e-15, -1, -8.74228e-08, -8.74228e-08, 8.74228e-08, -1, 0.176063, 0.0281144, -0.0165154)
 
 [connection signal="timeout" from="Timer" to="Trail2" method="_on_timer_timeout"]
 [connection signal="body_entered" from="Trail2/Area3D" to="Trail2" method="_on_area_3d_body_entered"]

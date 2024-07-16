@@ -6,17 +6,17 @@ extends MeshInstance3D
 @export var bikeMesh : Node3D
 @export var parent : Node3D
 @export var trailColor := Color8(0,235,243,255)
+@export var trailSpawnNode : Node3D
+
 var points := PackedVector3Array() 
 var widths := []
 var oldPos : Vector3
+
 func _ready():
 	material_override.set_albedo(trailColor)
 	material_override.emission = trailColor
-
 func _process(delta):
 	calculateMesh()
-	rotation = bikeMesh.rotation
-	rotation.x += 80
 	if self.position.y < -70:
 		self.position = Vector3(0,0,0)
 		self.velocity = Vector3(0,0,0)
@@ -44,15 +44,15 @@ func _GenerateMesh(verts : PackedVector3Array, uvs : PackedVector2Array):
 		collision.shape.set_faces(mesh.get_faces())
 		
 func appendPoint():
-	points.append(global_position)
+	points.append(trailSpawnNode.global_position)
 	widths.append([
-		global_transform.basis.z * width
+		trailSpawnNode.global_transform.basis.z * width
 	])
 
 func calculateMesh():
-	if (oldPos - global_position).length() > timeForSpawn:
+	if (oldPos - trailSpawnNode.global_position).length() > timeForSpawn:
 		appendPoint()
-		oldPos = global_position
+		oldPos = trailSpawnNode.global_position
 	
 		mesh.clear_surfaces()
 		

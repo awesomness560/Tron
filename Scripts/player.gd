@@ -11,6 +11,7 @@ extends CharacterBody3D
 @export var camera : ThirdPersonCamera
 @export var trail : Node3D
 
+
 var acceleration : Vector3 = Vector3.ZERO
 var steerAngle : float = 0.0
 

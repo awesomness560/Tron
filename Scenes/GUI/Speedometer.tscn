@@ -1,0 +1,79 @@
+[gd_scene load_steps=11 format=3 uid="uid://6ivtpb4gpcnk"]
+
+[ext_resource type="Texture2D" uid="uid://by8wri8fvin5o" path="res://Assets/Sprites/Speedometer/Speedometer_0.png" id="1_iim4k"]
+[ext_resource type="Script" path="res://Scenes/GUI/Speedometer.gd" id="1_w6wp0"]
+[ext_resource type="Texture2D" uid="uid://deyd7y02jys5" path="res://Assets/Sprites/Speedometer/Speedometer_1.png" id="2_sa6uh"]
+[ext_resource type="Texture2D" uid="uid://dl6hdcaxtdsge" path="res://Assets/Sprites/Speedometer/Speedometer_2.png" id="3_noriq"]
+[ext_resource type="Texture2D" uid="uid://x8vfyfwiv7xi" path="res://Assets/Sprites/Speedometer/Speedometer_3.png" id="4_ctwja"]
+[ext_resource type="Texture2D" uid="uid://82m254ikeud7" path="res://Assets/Sprites/Speedometer/Speedometer_4.png" id="5_rsvfa"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rwuja"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_iim4k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_sa6uh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_noriq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ctwja")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_rsvfa")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SystemFont" id="SystemFont_6ps2r"]
+font_weight = 500
+hinting = 2
+subpixel_positioning = 0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6av2w"]
+noise_type = 0
+frequency = 0.0922
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_nkjt3"]
+noise = SubResource("FastNoiseLite_6av2w")
+
+[node name="Speedometer" type="Node2D" node_paths=PackedStringArray("sprite", "text", "timer")]
+script = ExtResource("1_w6wp0")
+sprite = NodePath("AnimatedSprite2D")
+text = NodePath("Count")
+timer = NodePath("SpeedometerTimer")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1081, 70)
+scale = Vector2(2.17188, 2.17188)
+sprite_frames = SubResource("SpriteFrames_rwuja")
+
+[node name="Count" type="Label" parent="."]
+offset_left = 1062.0
+offset_top = 52.0
+offset_right = 1102.0
+offset_bottom = 119.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("SystemFont_6ps2r")
+theme_override_font_sizes/font_size = 48
+text = "0"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="SpeedometerTimer" type="Timer" parent="."]
+wait_time = 10.0
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(1082, 77)
+scale = Vector2(0.341797, 0.351562)
+color = Color(0.466181, 0.466181, 0.466181, 1)
+energy = 1.39
+texture = SubResource("NoiseTexture2D_nkjt3")
+
+[connection signal="timeout" from="SpeedometerTimer" to="." method="_on_speedometer_timer_timeout"]
