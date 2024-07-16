@@ -34,6 +34,8 @@ func join(id : int):
 	multiplayer.multiplayer_peer = peer
 	GlobalSteam.lobbyId = id
 	hide()
+	var level = testLevel.instantiate()
+	add_child(level)
 
 func onLobbyCreated(connect, id):
 	if connect:
