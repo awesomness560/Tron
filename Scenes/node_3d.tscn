@@ -28,7 +28,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_rise8")
 shape = SubResource("ConcavePolygonShape3D_jptva")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="Floor/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.108887, 0, -1.34166)
+transform = Transform3D(1, 0, 0, 0, 0.977585, -0.21054, 0, 0.21054, 0.977585, 0.108887, 0, -1.34166)
 shape = SubResource("BoxShape3D_2xhvt")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("mainMenu", "multiplayerSpawner")]

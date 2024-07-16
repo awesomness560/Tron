@@ -8,20 +8,40 @@ extends CharacterBody3D
 @export var friction : float = -2.0
 @export var drag : float = -2.0
 @export var visuals : Node3D
-
+@export var trail : Node3D
+@export var AItype : String = "Spin"
 var acceleration : Vector3 = Vector3.ZERO
 var steerAngle : float = 0.0
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
+func Respawn():
+	self.position = Vector3(0,0,0)
+	self.velocity = Vector3(0,0,0)
+	trail._delete_trail()
+	
 func _physics_process(delta):
+	if self.position.y < -70:
+		Respawn()
 	if is_on_floor():
-		#get_input()
-		apply_friction(delta)
-		calculate_steering(delta)
-		acceleration = Vector3.ZERO
-		acceleration = -transform.basis.z * enginePower
+		if AItype == "Spin":
+			get_input(5)
+			apply_friction(delta)
+			calculate_steering(delta)
+			acceleration = Vector3.ZERO
+			acceleration = -transform.basis.z * enginePower
+		elif AItype == "Stay":
+			pass
+		elif AItype == "Straight":
+			get_input(0)
+			apply_friction(delta)
+			calculate_steering(delta)
+			acceleration = Vector3.ZERO
+			acceleration = -transform.basis.z * enginePower
+		var n = $RayCast3D.get_collision_normal()
+		var xform = align_with_y(global_transform, n)
+		global_transform = global_transform.interpolate_with(xform, 20 * delta)
 	acceleration.y = gravity
 	velocity += acceleration * delta
 	move_and_slide()
@@ -48,14 +68,13 @@ func calculate_steering(delta):
 		velocity = -newHeading * velocity.length()
 	look_at(transform.origin + newHeading, transform.basis.y)
 
-func get_input():
-	var turn = Input.get_action_strength("steer_left")
-	turn -= Input.get_action_strength("steer_right")
+func get_input(turnAmt : int):
+	var turn = turnAmt
 	steerAngle = turn * deg_to_rad(steeringLimit)
 	visuals.rotation.x = steerAngle
-	
-	acceleration = Vector3.ZERO
-	if Input.is_action_pressed("accelerate"):
-		acceleration = -transform.basis.z * enginePower
-	if Input.is_action_pressed("brake"):
-		acceleration = -transform.basis.z * braking
+
+func align_with_y(xform, new_y):
+	xform.basis.y = new_y
+	xform.basis.x = -xform.basis.z.cross(new_y)
+	xform.basis = xform.basis.orthonormalized()
+	return xform

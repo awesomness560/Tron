@@ -7,14 +7,15 @@ var widths = []
 @export var timeForSpawn : float = 0.1
 @export var collider : CollisionShape3D
 @export var bikeMesh : Node3D
-
+@export var trailColor : Color = Color8(0,1020,1020,255)
 var concaveShape : ConcavePolygonShape3D
 var oldPos : Vector3
 
 func _ready():
 	oldPos = global_position
 	concaveShape = collider.shape
-
+	material_override.set_shader_parameter("base_color",trailColor)
+	
 func _process(delta):
 	calculateMesh()
 	calculateCollisions()
@@ -25,7 +26,8 @@ func calculateCollisions():
 	var localPoints = PackedVector3Array()
 	for point in points:
 		localPoints.append(to_local(point))
-	concaveShape.set_faces(localPoints)
+	if localPoints.size() %3 == 0:
+		concaveShape.set_faces(localPoints)
 
 #func calculateCollisions(): #This doesn't work
 	#var localPoints = PackedVector3Array()
@@ -86,10 +88,11 @@ func appendPoint():
 #func _on_timer_timeout():
 	##calculateCollisions()
 	#if get_child_count() > 0:
-		#for i in get_children():
+		#for i in get_child4ren():
 			#i.queue_free()
 	#create_multiple_convex_collisions()
 
 
 func _on_static_body_3d_body_entered(body):
-	print(get_parent().name+" "+body.name)
+	if !(get_parent().name == "Player"):
+		print(get_parent().name+" "+body.name)

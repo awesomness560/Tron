@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://72p0fe2ywdqc"]
 
-[ext_resource type="Script" path="res://Scenes/Multiplayer/player_spawner.gd" id="1_v6vi1"]
+[ext_resource type="Script" path="res://Scripts/Multiplayer/player_spawner.gd" id="1_v6vi1"]
 [ext_resource type="PackedScene" uid="uid://dgwr7vg3s8abl" path="res://Scenes/player.tscn" id="2_lmb2w"]
 
 [node name="PlayerSpawner" type="MultiplayerSpawner"]

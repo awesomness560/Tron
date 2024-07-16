@@ -22,7 +22,7 @@ func host():
 func join(id : int):
 	peer.connect_lobby(id)
 	multiplayer.multiplayer_peer = peer
-	GlobalSteam.lobbyId = id
+	#GlobalSteam.lobbyId = id
 
 func onLobbyCreated(connect, id):
 	if connect:
