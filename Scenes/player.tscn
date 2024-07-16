@@ -9,6 +9,7 @@
 [sub_resource type="BoxMesh" id="BoxMesh_8ern3"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_g31vh"]
+resource_local_to_scene = true
 size = Vector3(0.0497232, 0.0701904, 0.180969)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_xxbfm"]
