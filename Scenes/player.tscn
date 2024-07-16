@@ -55,22 +55,20 @@ camera_speed = 1.0
 current = true
 mouse_follow = true
 
-[node name="light_bike" parent="." instance=ExtResource("5_fcudt")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
-
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_xxbfm")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 
-[node name="Trail2" type="MeshInstance3D" parent="." node_paths=PackedStringArray("collision", "bikeMesh", "parent")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0831848)
+[node name="Trail2" type="MeshInstance3D" parent="." node_paths=PackedStringArray("collision", "bikeMesh", "parent", "trailSpawnNode")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0686382)
 material_override = ExtResource("5_jfr8n")
 mesh = SubResource("ArrayMesh_hv28o")
 script = ExtResource("5_mrmcj")
 collision = NodePath("Area3D/CollisionShape3D2")
 bikeMesh = NodePath("../light_bike")
 parent = NodePath("..")
+trailSpawnNode = NodePath("../light_bike/TrailSpawner")
 
 [node name="Area3D" type="Area3D" parent="Trail2"]
 disable_mode = 1
@@ -81,6 +79,12 @@ monitorable = false
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="Trail2/Area3D"]
 shape = SubResource("ConcavePolygonShape3D_gc3t3")
+
+[node name="light_bike" parent="." instance=ExtResource("5_fcudt")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="TrailSpawner" type="Node3D" parent="light_bike"]
+transform = Transform3D(1, -4.37114e-08, -4.37114e-08, 4.37114e-08, -4.37114e-08, 1, -4.37114e-08, -1, -4.37114e-08, 0.0880314, 0.0281144, -3.84798e-09)
 
 [connection signal="timeout" from="Timer" to="Trail2" method="_on_timer_timeout"]
 [connection signal="body_entered" from="Trail2/Area3D" to="Trail2" method="_on_area_3d_body_entered"]

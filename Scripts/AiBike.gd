@@ -9,7 +9,7 @@ extends CharacterBody3D
 @export var drag : float = -2.0
 @export var visuals : Node3D
 @export var trail : Node3D
-@export var AItype : String = "Spin"
+@export var AI_type : String = "Spin"
 var acceleration : Vector3 = Vector3.ZERO
 var steerAngle : float = 0.0
 
@@ -25,15 +25,15 @@ func _physics_process(delta):
 	if self.position.y < -70:
 		Respawn()
 	if is_on_floor():
-		if AItype == "Spin":
+		if AI_type == "Spin":
 			get_input(5)
 			apply_friction(delta)
 			calculate_steering(delta)
 			acceleration = Vector3.ZERO
 			acceleration = -transform.basis.z * enginePower
-		elif AItype == "Stay":
+		elif AI_type == "Stay":
 			pass
-		elif AItype == "Straight":
+		elif AI_type == "Straight":
 			get_input(0)
 			apply_friction(delta)
 			calculate_steering(delta)
