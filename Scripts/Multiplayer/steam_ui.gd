@@ -21,12 +21,14 @@ func host():
 	multiplayer.multiplayer_peer = peer
 	
 	#ms.spawn(testLevel)
-	var level = testLevel.instantiate()
-	add_child(level)
+	ms.spawn("res://Scenes/Level/level.tscn")
+	#var level = testLevel.instantiate()
+	#add_child(level)
 	#gameSpawner.spawn(level1)
 
-func spawnLevel(data : PackedScene):
-	var a = data.instantiate()
+func spawnLevel(data):
+	#var a = data.instantiate()
+	var a = (load(data) as PackedScene).instantiate()
 	return a
 
 func join(id : int):
@@ -34,8 +36,8 @@ func join(id : int):
 	multiplayer.multiplayer_peer = peer
 	GlobalSteam.lobbyId = id
 	hide()
-	var level = testLevel.instantiate()
-	add_child(level)
+	#var level = testLevel.instantiate()
+	#add_child(level)
 
 func onLobbyCreated(connect, id):
 	if connect:
