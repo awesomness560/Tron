@@ -1,8 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://de6vdnmuiymg5"]
+[gd_scene load_steps=3 format=3 uid="uid://de6vdnmuiymg5"]
 
-[ext_resource type="Script" path="res://Scripts/Multiplayer/MultiplayerSpawner.gd" id="2_5oorv"]
 [ext_resource type="PackedScene" uid="uid://ox8fynbdf5pq" path="res://Scenes/GameModes/default_game_manager.tscn" id="2_41epc"]
-[ext_resource type="PackedScene" uid="uid://dgwr7vg3s8abl" path="res://Scenes/player.tscn" id="3_1xi2e"]
 [ext_resource type="PackedScene" uid="uid://d4fv1r0rtvnhx" path="res://Scenes/Multiplayer/steam_ui.tscn" id="3_8nxmy"]
 
 [node name="MainSteamMenu" type="Node"]
@@ -13,8 +11,3 @@ testGameMode = ExtResource("2_41epc")
 
 [node name="LevelSpawner" type="MultiplayerSpawner" parent="."]
 spawn_path = NodePath(".")
-
-[node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]
-spawn_path = NodePath(".")
-script = ExtResource("2_5oorv")
-playerScene = ExtResource("3_1xi2e")
