@@ -11,6 +11,7 @@ var peer : SteamMultiplayerPeer = SteamMultiplayerPeer.new()
 @export var ms : MultiplayerSpawner
 @export var level1 : PackedScene
 @export var testLevel : PackedScene
+@export var testGameMode : PackedScene
 
 func _ready():
 	ms.spawn_function = spawnLevel
@@ -23,14 +24,15 @@ func host():
 	multiplayer.multiplayer_peer = peer
 	
 	#ms.spawn(testLevel)
-	ms.spawn("res://Scenes/Level/level.tscn")
+	ms.spawn(testLevel)
+	ms.spawn(testGameMode)
 	#var level = testLevel.instantiate()
 	#add_child(level)
 	#gameSpawner.spawn(level1)
 
-func spawnLevel(data):
+func spawnLevel(data : PackedScene):
 	#var a = data.instantiate()
-	var a = (load(data) as PackedScene).instantiate()
+	var a = data.instantiate()
 	return a
 
 func join(id : int):
@@ -74,6 +76,7 @@ func onLobbyCreated(connect, id):
 		#hide()
 		joinLobbyMenu.hide()
 		lobbyMenu.show()
+		SignalBus.joinedLobby.emit()
 
 func onLobbyMatchList(lobbies):
 	for lobby in lobbies:

@@ -96,7 +96,7 @@ offset_bottom = 439.0
 placeholder_text = "Join Code"
 alignment = 1
 
-[node name="LobbyMenu" type="Control" parent="." node_paths=PackedStringArray("playersContainer")]
+[node name="LobbyMenu" type="Control" parent="." node_paths=PackedStringArray("playersContainer", "startGameButton")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -106,6 +106,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_f6ax5")
 playersContainer = NodePath("Players/ScrollContainer/PlayersContainer")
+startGameButton = NodePath("StartGame")
 lobbyMemberScene = ExtResource("4_gyw62")
 
 [node name="Background" type="ColorRect" parent="LobbyMenu"]
@@ -156,9 +157,11 @@ offset_bottom = 533.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 25
 theme_override_styles/normal = SubResource("StyleBoxFlat_w4u5i")
+disabled = true
 text = "Start Game"
 
 [connection signal="pressed" from="JoinLobbyMenu/Refresh" to="." method="_on_refresh_pressed"]
 [connection signal="pressed" from="JoinLobbyMenu/Host" to="." method="host"]
 [connection signal="pressed" from="JoinLobbyMenu/JoinWithCode" to="." method="_on_join_with_code_pressed"]
 [connection signal="pressed" from="LobbyMenu/Disconnect" to="." method="leaveLobby"]
+[connection signal="pressed" from="LobbyMenu/StartGame" to="LobbyMenu" method="_on_start_game_pressed"]

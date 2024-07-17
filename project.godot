@@ -19,6 +19,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 GlobalSteam="*res://Scenes/Multiplayer/steam.tscn"
+SignalBus="*res://Scenes/Autoloads/SignalBus.tscn"
+GlobalVars="*res://Scenes/Autoloads/global_vars.tscn"
 
 [display]
 

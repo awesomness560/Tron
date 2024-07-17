@@ -2,6 +2,7 @@ extends Control
 class_name LobbyMenu
 
 @export var playersContainer : VBoxContainer
+@export var startGameButton : Button
 @export var lobbyMemberScene : PackedScene
 
 var lobbyMembers : Array = []
@@ -14,7 +15,9 @@ func _ready():
 func _on_lobby_joined(lobby_id: int, _permissions: int, _locked: bool, response: int) -> void:
 	if response == 1:
 		GlobalSteam.lobbyId = lobby_id
+		SignalBus.joinedLobby.emit()
 		
+		toggleStartGameButton()
 		getLobbyMembers()
 	
 	else:
@@ -85,7 +88,15 @@ func onLobbyChatUpdate(lobbyId : int, changedId : int, makingChangeId : int, cha
 		print(str(changer)+" did something...")
 	#Update the lobby now that a change has occured
 	getLobbyMembers()
+	toggleStartGameButton()
 
-#func _on_visibility_changed():
-	#if visible:
-		#getLobbyMembers()
+func toggleStartGameButton(): ##Toggles the start game button depending on whether you are the host or not
+	if multiplayer.is_server():
+		startGameButton.disabled = false
+	else:
+		startGameButton.disabled = true
+
+func _on_start_game_pressed():
+	SignalBus.startGame.emit()
+	hide()
+	Steam.setLobbyJoinable(GlobalSteam.lobbyId, false)

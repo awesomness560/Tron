@@ -1,27 +1,33 @@
 extends CharacterBody3D
+class_name Player
 
 @export var gravity : float = -20.0
-@export var steeringLimit : float = 10.0
-@export var wheelBase : float = 2.0
-@export var enginePower : float = 6.0
-@export var braking : float = -9.0
-@export var friction : float = -2.0
+@export var steeringLimit : float = 10.0 ##Maxiumum turning radius
+@export var wheelBase : float = 2.0 ##Distance between wheels
+@export var enginePower : float = 6.0 ##Speed of bike going forwards
+@export var braking : float = -9.0 ##Speed of bike going backwards
+@export var friction : float = -2.0 
 @export var drag : float = -2.0
-@export var visuals : Node3D
+@export var visuals : Node3D ##Mesh containing the visuals of the bike
 @export var camera : ThirdPersonCamera
 @export var trail : Node3D
 
 
 var acceleration : Vector3 = Vector3.ZERO
 var steerAngle : float = 0.0
+var canMove : bool = false
 
 func _enter_tree():
 	set_multiplayer_authority(str(name).to_int())
+	camera.current = is_multiplayer_authority()
 
 func _ready():
 	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	
-	camera.current = is_multiplayer_authority()
+	SignalBus.startGame.connect(onStartGame)
+
+func onStartGame(): ##Triggered when the game starts
+	canMove = true
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func Respawn():
 	self.position = Vector3(0,0,0)
@@ -29,7 +35,7 @@ func Respawn():
 	trail._delete_trail()
 	
 func _physics_process(delta):
-	if not is_multiplayer_authority(): return #If we are not the player, don't run this code
+	if not is_multiplayer_authority() or not canMove: return #If we are not the player, don't run this code
 	if self.position.y < -70:
 		Respawn()
 	if is_on_floor():

@@ -1,14 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dyqqea4pychm1"]
+[gd_scene load_steps=2 format=3 uid="uid://dyqqea4pychm1"]
 
-[ext_resource type="Script" path="res://Scripts/Multiplayer/MultiplayerSpawner.gd" id="1_hxfpq"]
-[ext_resource type="PackedScene" uid="uid://dgwr7vg3s8abl" path="res://Scenes/player.tscn" id="2_st6by"]
 [ext_resource type="PackedScene" uid="uid://bcvcijcet6ueq" path="res://Scenes/Level/DemoTracks/Mcguffin.tscn" id="3_ggyal"]
 
 [node name="Level" type="Node"]
-
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-spawn_path = NodePath(".")
-script = ExtResource("1_hxfpq")
-playerScene = ExtResource("2_st6by")
 
 [node name="Mcguffin" parent="." instance=ExtResource("3_ggyal")]
