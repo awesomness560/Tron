@@ -31,7 +31,6 @@ func host():
 	#gameSpawner.spawn(level1)
 
 func spawnLevel(data : PackedScene):
-	#var a = data.instantiate()
 	var a = data.instantiate()
 	return a
 

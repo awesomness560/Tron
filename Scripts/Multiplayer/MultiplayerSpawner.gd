@@ -10,7 +10,7 @@ func _ready():
 var players := {}
 
 func joinedLobby():##Spawns player whenver you join a lobby
-	if is_multiplayer_authority():
+	if multiplayer.is_server():
 		spawn(1)
 		multiplayer.peer_connected.connect(spawn)
 		multiplayer.peer_disconnected.connect(removePlayer)
