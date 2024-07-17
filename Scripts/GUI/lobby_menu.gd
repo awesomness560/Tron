@@ -9,6 +9,29 @@ var lobbyMembers : Array = []
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Steam.lobby_chat_update.connect(onLobbyChatUpdate)
+	Steam.lobby_joined.connect(_on_lobby_joined)
+
+func _on_lobby_joined(lobby_id: int, _permissions: int, _locked: bool, response: int) -> void:
+	if response == 1:
+		GlobalSteam.lobbyId = lobby_id
+		
+		getLobbyMembers()
+	
+	else:
+		# Get the failure reason
+		var FAIL_REASON: String
+		match response:
+			2:	FAIL_REASON = "This lobby no longer exists."
+			3:	FAIL_REASON = "You don't have permission to join this lobby."
+			4:	FAIL_REASON = "The lobby is now full."
+			5:	FAIL_REASON = "Uh... something unexpected happened!"
+			6:	FAIL_REASON = "You are banned from this lobby."
+			7:	FAIL_REASON = "You cannot join due to having a limited account."
+			8:	FAIL_REASON = "This lobby is locked or disabled."
+			9:	FAIL_REASON = "This lobby is community locked."
+			10:	FAIL_REASON = "A user in the lobby has blocked you from joining."
+			11:	FAIL_REASON = "A user you have blocked is in the lobby."
+		print("[STEAM] Failed joining lobby "+str(lobby_id)+": "+str(FAIL_REASON))
 
 func getLobbyMembers() -> void:
 	#Clear previous lobby list
@@ -35,6 +58,7 @@ func addPlayerToConnectList(steamId : int, steamName : String) -> void:
 	#Instance lobby member node
 	var lobbyMember : LobbyMember = lobbyMemberScene.instantiate()
 	#Add their steam name and id
+	print(steamName)
 	lobbyMember.name = str(steamName)
 	lobbyMember.setMember(steamId, steamName)
 	#Add them to the Vbox
@@ -62,6 +86,6 @@ func onLobbyChatUpdate(lobbyId : int, changedId : int, makingChangeId : int, cha
 	#Update the lobby now that a change has occured
 	getLobbyMembers()
 
-func _on_visibility_changed():
-	if visible:
-		getLobbyMembers()
+#func _on_visibility_changed():
+	#if visible:
+		#getLobbyMembers()

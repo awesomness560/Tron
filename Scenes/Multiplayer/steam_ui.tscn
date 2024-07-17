@@ -161,5 +161,4 @@ text = "Start Game"
 [connection signal="pressed" from="JoinLobbyMenu/Refresh" to="." method="_on_refresh_pressed"]
 [connection signal="pressed" from="JoinLobbyMenu/Host" to="." method="host"]
 [connection signal="pressed" from="JoinLobbyMenu/JoinWithCode" to="." method="_on_join_with_code_pressed"]
-[connection signal="visibility_changed" from="LobbyMenu" to="LobbyMenu" method="_on_visibility_changed"]
 [connection signal="pressed" from="LobbyMenu/Disconnect" to="." method="leaveLobby"]
