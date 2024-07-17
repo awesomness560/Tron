@@ -99,7 +99,7 @@ shape = SubResource("ConcavePolygonShape3D_0qhpi")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.3583, -0.14568, 0)
 
 [node name="SpawnPosition" parent="." instance=ExtResource("5_ryeyx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.0255, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.49979, 0, 0)
 
 [node name="SpawnPosition2" parent="." instance=ExtResource("5_ryeyx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.8733, 0, 0)
