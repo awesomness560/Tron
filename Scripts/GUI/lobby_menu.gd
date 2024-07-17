@@ -97,6 +97,10 @@ func toggleStartGameButton(): ##Toggles the start game button depending on wheth
 		startGameButton.disabled = true
 
 func _on_start_game_pressed():
+	Steam.setLobbyJoinable(GlobalSteam.lobbyId, false)
+	rpc("startGameRPC")
+
+@rpc("any_peer", "call_local")
+func startGameRPC():
 	SignalBus.startGame.emit()
 	hide()
-	Steam.setLobbyJoinable(GlobalSteam.lobbyId, false)
