@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://brwxsmctgaf4i"]
+
+[ext_resource type="Script" path="res://Scripts/Levels/spawn_position.gd" id="1_1lm60"]
+
+[node name="SpawnPosition" type="Node3D"]
+script = ExtResource("1_1lm60")

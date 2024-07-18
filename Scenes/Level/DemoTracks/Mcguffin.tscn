@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://bcvcijcet6ueq"]
+[gd_scene load_steps=16 format=3 uid="uid://bcvcijcet6ueq"]
 
 [ext_resource type="Material" uid="uid://dyvekuo8ecpnn" path="res://Assets/Materials/metal1.tres" id="1_xy67o"]
 [ext_resource type="Texture2D" uid="uid://csul2nu3wv8bc" path="res://Assets/Materials/placeholderSky.png" id="2_jjsym"]
 [ext_resource type="Material" uid="uid://yiewyev371hf" path="res://Assets/Materials/Glow.tres" id="2_r6ie1"]
 [ext_resource type="PackedScene" uid="uid://bp0e01s4h4rdf" path="res://Scenes/AiBike.tscn" id="3_u6gpd"]
+[ext_resource type="PackedScene" uid="uid://brwxsmctgaf4i" path="res://Scenes/Reusables/spawn_position.tscn" id="5_ryeyx"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_24fil"]
 material = ExtResource("1_xy67o")
@@ -96,3 +97,12 @@ shape = SubResource("ConcavePolygonShape3D_0qhpi")
 
 [node name="AIBike" parent="." instance=ExtResource("3_u6gpd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.3583, -0.14568, 0)
+
+[node name="SpawnPosition" parent="." instance=ExtResource("5_ryeyx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.49979, 0, 0)
+
+[node name="SpawnPosition2" parent="." instance=ExtResource("5_ryeyx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.8733, 0, 0)
+
+[node name="SpawnPosition3" parent="." instance=ExtResource("5_ryeyx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.8733, 0, -56.6953)

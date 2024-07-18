@@ -51,7 +51,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.68378, 0, -0.0223116)
 enginePower = 6.0
 visuals = NodePath("../AIBike/light_bike")
 trail = NodePath("../AIBike/Trail2")
-AItype = "Straight"
 
 [node name="Ramp" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2.47153, 13)

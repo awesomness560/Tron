@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://bf4kxlveskol"]
+
+[ext_resource type="Script" path="res://Scripts/GUI/lobby_member.gd" id="1_auqm1"]
+[ext_resource type="Texture2D" uid="uid://b0aftx1nq7cqg" path="res://Assets/Sprites/default-avatar-medium.png" id="1_bmd52"]
+
+[node name="LobbyMember" type="HBoxContainer" node_paths=PackedStringArray("usernameLabel", "avatarRect")]
+anchors_preset = -1
+anchor_right = 0.187
+anchor_bottom = 0.103
+offset_right = -0.424011
+offset_bottom = 0.255997
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
+script = ExtResource("1_auqm1")
+usernameLabel = NodePath("Others/Username")
+avatarRect = NodePath("Avatar")
+
+[node name="Avatar" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_bmd52")
+stretch_mode = 4
+
+[node name="Others" type="VBoxContainer" parent="."]
+layout_mode = 2
+alignment = 1
+
+[node name="Username" type="Label" parent="Others"]
+layout_mode = 2
+text = "Player username"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ViewProfile" type="Button" parent="Others"]
+layout_mode = 2
+text = "View"
+
+[connection signal="pressed" from="Others/ViewProfile" to="." method="_on_view_profile_pressed"]

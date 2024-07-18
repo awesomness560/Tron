@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://c5wbnasncm64h"]
+[gd_scene load_steps=8 format=3 uid="uid://c5wbnasncm64h"]
 
 [ext_resource type="Texture2D" uid="uid://dxnqf4pya11dj" path="res://addons/godot-prototype-texture/PNG/checker_blue_512x512.png" id="1_cf3j0"]
-[ext_resource type="PackedScene" uid="uid://bp0e01s4h4rdf" path="res://Scenes/AiBike.tscn" id="3_hrdr3"]
+[ext_resource type="PackedScene" uid="uid://dgwr7vg3s8abl" path="res://Scenes/player.tscn" id="1_xe6ns"]
+[ext_resource type="Script" path="res://Scripts/multiplayer_local.gd" id="2_4hbuv"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_r8j8s"]
 
@@ -30,5 +31,45 @@ shape = SubResource("ConcavePolygonShape3D_jptva")
 transform = Transform3D(1, 0, 0, 0, 0.977585, -0.21054, 0, 0.21054, 0.977585, 0.108887, 0, -1.34166)
 shape = SubResource("BoxShape3D_2xhvt")
 
-[node name="AIBike" parent="." instance=ExtResource("3_hrdr3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.01734, 0, -0.459065)
+[node name="CanvasLayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("mainMenu", "multiplayerSpawner")]
+script = ExtResource("2_4hbuv")
+mainMenu = NodePath("PanelContainer")
+multiplayerSpawner = NodePath("../MultiplayerSpawner")
+playerScene = ExtResource("1_xe6ns")
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 469.0
+offset_top = 254.0
+offset_right = -469.0
+offset_bottom = -254.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PanelContainer/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Host" type="Button" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Host"
+
+[node name="Join" type="Button" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Join"
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Scenes/player.tscn")
+spawn_path = NodePath(".")
+
+[connection signal="pressed" from="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/Host" to="CanvasLayer" method="_on_host_pressed"]
+[connection signal="pressed" from="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/Join" to="CanvasLayer" method="_on_join_pressed"]
