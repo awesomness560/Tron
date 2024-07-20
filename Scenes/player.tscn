@@ -68,6 +68,7 @@ material_override = ExtResource("5_jfr8n")
 mesh = SubResource("ArrayMesh_hv28o")
 script = ExtResource("5_mrmcj")
 collision = NodePath("Area3D/CollisionShape3D2")
+width = 0.02
 bikeMesh = NodePath("../light_bike")
 parent = NodePath("..")
 trailSpawnNode = NodePath("../light_bike/TrailSpawner")
@@ -86,7 +87,7 @@ shape = SubResource("ConcavePolygonShape3D_gc3t3")
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 
 [node name="TrailSpawner" type="Node3D" parent="light_bike"]
-transform = Transform3D(1, -4.37114e-08, -4.37114e-08, 4.37114e-08, -4.37114e-08, 1, -4.37114e-08, -1, -4.37114e-08, 0.0880314, 0.0165154, -3.84798e-09)
+transform = Transform3D(1, -4.37114e-08, -4.37114e-08, 4.37114e-08, -4.37114e-08, 1, -4.37114e-08, -1, -4.37114e-08, 0.0865927, 0.0165154, -3.78509e-09)
 
 [node name="Speedometer" parent="." instance=ExtResource("6_1b0sw")]
 visible = false
