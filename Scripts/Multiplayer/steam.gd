@@ -21,6 +21,9 @@ func initalizeSteam():
 	
 	if initialize_response['status'] > 0:
 		print("Failed to initialize Steam. %s" % initialize_response)
+		TextChat.chat.print_message(TextChat.chat.col(Color.RED, "Steam falied to initalize due to " + str(initialize_response)))
+	else:
+		TextChat.chat.print_message(TextChat.chat.col(Color.GREEN, "Steam succesfully intialized"))
 	
 	steamId = Steam.getSteamID()
 	steamUsername = Steam.getPersonaName()
