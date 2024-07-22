@@ -6,8 +6,9 @@
 [node name="MainSteamMenu" type="Node"]
 
 [node name="SteamUI" parent="." node_paths=PackedStringArray("ms") instance=ExtResource("3_8nxmy")]
-ms = NodePath("../LevelSpawner")
 testGameMode = ExtResource("2_41epc")
+ms = NodePath("../LevelSpawner")
 
 [node name="LevelSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Scenes/Level/level.tscn")
 spawn_path = NodePath(".")
