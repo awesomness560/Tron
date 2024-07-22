@@ -119,6 +119,7 @@ func _on_text_input_line_text_submitted(new_text: String) -> void:
 		_proceed_command(new_text)
 	else:
 		print_message(new_text)
+		SignalBus.message.emit(new_text)
 
 	text_input_line.text = ""
 

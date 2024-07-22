@@ -77,7 +77,7 @@ func onLobbyCreated(connect, id):
 		lobbyMenu.show()
 		SignalBus.joinedLobby.emit()
 		
-		TextChat.chat.print_message(TextChat.chat.col(Color.GREEN, "Succesfully joined lobby [i]" + str(lobbyId) + "[/i]"))
+		#TextChat.chat.print_message(TextChat.chat.col(Color.GREEN, "Succesfully joined lobby [i]" + str(lobbyId) + "[/i]"))
 
 func onLobbyMatchList(lobbies):
 	for lobby in lobbies:

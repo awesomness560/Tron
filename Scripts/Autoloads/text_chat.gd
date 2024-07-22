@@ -1,4 +1,4 @@
-extends Control
+extends CanvasLayer
 class_name ChatAutoload
 
 ##Used to manage console/text chat
