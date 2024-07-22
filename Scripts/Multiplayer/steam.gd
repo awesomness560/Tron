@@ -16,7 +16,7 @@ func _ready():
 
 
 func initalizeSteam():
-	var initialize_response: Dictionary = Steam.steamInitEx(false, steamAppId)
+	var initialize_response: Dictionary = Steam.steamInitEx(false, steamAppId, true)
 	print("Did Steam initialize?: %s" % initialize_response)
 	
 	if initialize_response['status'] > 0:
@@ -30,6 +30,6 @@ func initalizeSteam():
 	isOnline = Steam.loggedOn()
 	
 	print("Username: " + str(steamUsername) + " | Steam ID: " + str(steamId))
-
-func _process(delta):
-	Steam.run_callbacks()
+#
+#func _process(delta):
+	#Steam.run_callbacks()
