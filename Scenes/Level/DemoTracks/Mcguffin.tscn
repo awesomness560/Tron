@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bcvcijcet6ueq"]
+[gd_scene load_steps=15 format=3 uid="uid://bcvcijcet6ueq"]
 
 [ext_resource type="Material" uid="uid://dyvekuo8ecpnn" path="res://Assets/Materials/metal1.tres" id="1_xy67o"]
 [ext_resource type="Texture2D" uid="uid://csul2nu3wv8bc" path="res://Assets/Materials/placeholderSky.png" id="2_jjsym"]
@@ -16,10 +16,6 @@ data = PackedVector3Array(0, 5.5, 2, 0.196, 5.5, 1.9904, 0, 3.3, 1.7, 0.196, 5.5
 
 [sub_resource type="BoxMesh" id="BoxMesh_ijlka"]
 size = Vector3(80, 1, 80)
-
-[sub_resource type="SphereMesh" id="SphereMesh_7lm4b"]
-radius = 10.0
-height = 10.459
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_omfg1"]
 panorama = ExtResource("2_jjsym")
@@ -54,7 +50,7 @@ data = PackedVector3Array(7.5, 3.5, 1.5, 2.5, -3.5, 1.5, -2.5, -3.5, 1.5, 7.5, 3
 [node name="Mcguffin" type="Node3D"]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 2, -0.00874329, -3.61553, -27.0205)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00874329, -3.61553, -27.0205)
 
 [node name="Mcguffin Stand" type="MeshInstance3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
@@ -71,11 +67,6 @@ calculate_tangents = false
 use_collision = true
 mesh = SubResource("BoxMesh_ijlka")
 material = ExtResource("1_xy67o")
-
-[node name="CSGMesh3D2" type="CSGMesh3D" parent="Track"]
-operation = 2
-flip_faces = true
-mesh = SubResource("SphereMesh_7lm4b")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_52c4w")
