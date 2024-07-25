@@ -28,6 +28,7 @@ properties/2/replication_mode = 1
 resource_local_to_scene = true
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_gc3t3"]
+resource_local_to_scene = true
 backface_collision = true
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("visuals", "camera", "trail")]

@@ -40,7 +40,7 @@ func _GenerateMesh(verts : PackedVector3Array, uvs : PackedVector2Array):
 	var arrMesh = ArrayMesh.new()
 	arrMesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLE_STRIP, surface_array)
 	mesh = arrMesh
-	if verts.size() %9 == 0:
+	if verts.size() % 3 == 0:
 		collision.shape.set_faces(mesh.get_faces())
 		
 func appendPoint():
