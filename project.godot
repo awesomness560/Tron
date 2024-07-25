@@ -75,7 +75,7 @@ grab_console_focus={
 
 [layer_names]
 
-3d_render/layer_2="trails"
+3d_render/layer_2="Minimap"
 3d_physics/layer_2="Bikes"
 
 [physics]

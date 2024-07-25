@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bp0e01s4h4rdf"]
+[gd_scene load_steps=11 format=3 uid="uid://bp0e01s4h4rdf"]
 
 [ext_resource type="Script" path="res://Scripts/AiBike.gd" id="1_ddjx2"]
 [ext_resource type="Material" uid="uid://yiewyev371hf" path="res://Assets/Materials/Glow.tres" id="4_rsthi"]
@@ -10,11 +10,20 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_g31vh"]
 size = Vector3(0.0497232, 0.0701904, 0.180969)
 
+[sub_resource type="ArrayMesh" id="ArrayMesh_iqoiu"]
+resource_local_to_scene = true
+
 [sub_resource type="ArrayMesh" id="ArrayMesh_watfq"]
 resource_local_to_scene = true
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_jq0w6"]
 backface_collision = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_xg458"]
+resource_local_to_scene = true
+material = ExtResource("4_rsthi")
+radius = 0.1
+height = 0.2
 
 [node name="AIBike" type="CharacterBody3D" node_paths=PackedStringArray("visuals", "trail")]
 collision_layer = 3
@@ -36,7 +45,13 @@ shape = SubResource("BoxShape3D_g31vh")
 wait_time = 1.166
 autostart = true
 
-[node name="Trail2" type="MeshInstance3D" parent="." node_paths=PackedStringArray("collision", "bikeMesh", "parent", "trailSpawnNode")]
+[node name="MiniMap" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0118874, 0.0859463)
+layers = 2
+material_override = ExtResource("4_rsthi")
+mesh = SubResource("ArrayMesh_iqoiu")
+
+[node name="Trail2" type="MeshInstance3D" parent="." node_paths=PackedStringArray("collision", "bikeMesh", "parent", "trailSpawnNode", "miniMapMarker", "minimapTrail")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0118874, 0.0859463)
 material_override = ExtResource("4_rsthi")
 mesh = SubResource("ArrayMesh_watfq")
@@ -47,11 +62,13 @@ bikeMesh = NodePath("../light_bike")
 parent = NodePath("..")
 trailColor = Color(0.594559, 0, 0.254643, 1)
 trailSpawnNode = NodePath("../light_bike/TrailSpawner")
+miniMapMarker = NodePath("../MinimapMarker")
+minimapTrail = NodePath("../MiniMap")
 
 [node name="Area3D" type="Area3D" parent="Trail2"]
 disable_mode = 1
 collision_layer = 0
-collision_mask = 3
+collision_mask = 2
 input_ray_pickable = false
 monitorable = false
 
@@ -65,6 +82,11 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 
 
 [node name="TrailSpawner" type="Node3D" parent="light_bike"]
 transform = Transform3D(1, 2.68658e-16, -8.74228e-08, -3.55271e-15, -1, -8.74228e-08, -8.74228e-08, 8.74228e-08, -1, 0.0865927, 0.0165154, -3.78509e-09)
+
+[node name="MinimapMarker" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.39675, 0)
+layers = 2
+mesh = SubResource("SphereMesh_xg458")
 
 [connection signal="timeout" from="Timer" to="Trail2" method="_on_timer_timeout"]
 [connection signal="body_entered" from="Trail2/Area3D" to="Trail2" method="_on_area_3d_body_entered"]
