@@ -24,14 +24,15 @@ func host():
 	multiplayer.multiplayer_peer = peer
 	
 	#ms.spawn(testLevel)
-	ms.spawn(testLevel)
-	ms.spawn(testGameMode)
+	ms.spawn("res://Scenes/Level/level.tscn")
+	#ms.spawn(testGameMode)
 	#var level = testLevel.instantiate()
 	#add_child(level)
 	#gameSpawner.spawn(level1)
 
-func spawnLevel(data : PackedScene):
-	var a = data.instantiate()
+func spawnLevel(data : String):
+	#var a = data.instantiate()
+	var a = (load(data) as PackedScene).instantiate()
 	return a
 
 func join(id : int):

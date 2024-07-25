@@ -33,7 +33,13 @@ backface_collision = true
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("visuals", "camera", "trail")]
 collision_layer = 3
 script = ExtResource("1_n6aeo")
+gravity = null
 steeringLimit = 50.0
+wheelBase = null
+enginePower = null
+braking = null
+friction = null
+drag = null
 visuals = NodePath("light_bike")
 camera = NodePath("ThirdPersonCamera")
 trail = NodePath("Trail2")
