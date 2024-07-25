@@ -73,6 +73,10 @@ grab_console_focus={
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_2="Bikes"
+
 [physics]
 
 3d/physics_engine="GodotPhysics3D"
