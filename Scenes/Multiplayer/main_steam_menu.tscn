@@ -10,5 +10,4 @@ ms = NodePath("../LevelSpawner")
 testGameMode = ExtResource("2_41epc")
 
 [node name="LevelSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://Scenes/Level/level.tscn")
 spawn_path = NodePath(".")
