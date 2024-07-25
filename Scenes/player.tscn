@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dgwr7vg3s8abl"]
+[gd_scene load_steps=14 format=3 uid="uid://dgwr7vg3s8abl"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_n6aeo"]
 [ext_resource type="PackedScene" uid="uid://wmf2eu0uuhrg" path="res://addons/third-person-camera/third_person_camera/ThirdPersonCamera.tscn" id="3_p1ncs"]
@@ -31,7 +31,13 @@ resource_local_to_scene = true
 resource_local_to_scene = true
 backface_collision = true
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("visuals", "camera", "trail")]
+[sub_resource type="Environment" id="Environment_jm3vd"]
+background_mode = 1
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_c2353"]
+viewport_path = NodePath("SubViewport")
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("visuals", "camera", "trail", "minimapCamera")]
 collision_layer = 3
 script = ExtResource("1_n6aeo")
 gravity = null
@@ -44,6 +50,7 @@ drag = null
 visuals = NodePath("light_bike")
 camera = NodePath("ThirdPersonCamera")
 trail = NodePath("Trail2")
+minimapCamera = NodePath("SubViewport/Camera3D")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.3, 0, 0, 0, 0.086, 0, 0, 0, 0.3, 0, 0, 0)
@@ -71,6 +78,7 @@ replication_config = SubResource("SceneReplicationConfig_xxbfm")
 
 [node name="Trail2" type="MeshInstance3D" parent="." node_paths=PackedStringArray("collision", "bikeMesh", "parent", "trailSpawnNode")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0686382)
+layers = 3
 material_override = ExtResource("5_jfr8n")
 mesh = SubResource("ArrayMesh_hv28o")
 script = ExtResource("5_mrmcj")
@@ -98,6 +106,30 @@ transform = Transform3D(1, -4.37114e-08, -4.37114e-08, 4.37114e-08, -4.37114e-08
 
 [node name="Speedometer" parent="." instance=ExtResource("6_1b0sw")]
 visible = false
+
+[node name="SubViewport" type="SubViewport" parent="."]
+handle_input_locally = false
+scaling_3d_scale = 1.19
+canvas_cull_mask = 4293918722
+size = Vector2i(256, 256)
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.117953, 0.993019, 0, -0.993019, 0.117953, 0, 1.45999, 0)
+top_level = true
+cull_mask = 2
+environment = SubResource("Environment_jm3vd")
+current = true
+fov = 125.15
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="Minimap" type="TextureRect" parent="CanvasLayer"]
+offset_left = 860.0
+offset_top = -3.0
+offset_right = 1152.0
+offset_bottom = 292.0
+texture = SubResource("ViewportTexture_c2353")
 
 [connection signal="timeout" from="Timer" to="Trail2" method="_on_timer_timeout"]
 [connection signal="body_entered" from="Trail2/Area3D" to="Trail2" method="_on_area_3d_body_entered"]
