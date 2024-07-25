@@ -28,6 +28,7 @@ properties/2/replication_mode = 1
 resource_local_to_scene = true
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_gc3t3"]
+resource_local_to_scene = true
 backface_collision = true
 
 [sub_resource type="Environment" id="Environment_jm3vd"]
@@ -39,7 +40,13 @@ viewport_path = NodePath("SubViewport")
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("visuals", "camera", "trail")]
 collision_layer = 3
 script = ExtResource("1_n6aeo")
+gravity = null
 steeringLimit = 50.0
+wheelBase = null
+enginePower = null
+braking = null
+friction = null
+drag = null
 visuals = NodePath("light_bike")
 camera = NodePath("ThirdPersonCamera")
 trail = NodePath("Trail2")
@@ -83,7 +90,7 @@ trailSpawnNode = NodePath("../light_bike/TrailSpawner")
 [node name="Area3D" type="Area3D" parent="Trail2"]
 disable_mode = 1
 collision_layer = 0
-collision_mask = 3
+collision_mask = 2
 input_ray_pickable = false
 monitorable = false
 
