@@ -85,7 +85,6 @@ func calculateMesh():
 func _on_area_3d_body_entered(body):
 	if body != parent:
 		body.Respawn()
-		print(body.name)
 
 func _on_timer_timeout():
 	self.visible = true
