@@ -11,7 +11,7 @@ class_name Player
 @export var visuals : Node3D ##Mesh containing the visuals of the bike
 @export var camera : ThirdPersonCamera
 @export var trail : Node3D
-
+@export var minimapCamera : Camera3D
 
 var acceleration : Vector3 = Vector3.ZERO
 var steerAngle : float = 0.0
@@ -53,7 +53,7 @@ func _physics_process(delta):
 	if current_speed > max_speed:
 		velocity = velocity.normalized() * max_speed
 	move_and_slide()
-
+	minimapCamera.global_position = self.global_position + Vector3(0,10,0)
 func apply_friction(delta):
 	if velocity.length() < 0.2 and acceleration.length() == 0:
 		velocity.x = 0
