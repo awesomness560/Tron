@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="MapResource" load_steps=3 format=3 uid="uid://jil1ai6o2b4r"]
+
+[ext_resource type="Texture2D" uid="uid://hs7n3luwnvl0" path="res://Assets/Sprites/MapIcons/testLevel.png" id="1_4fr05"]
+[ext_resource type="Script" path="res://Resources/map_resource.gd" id="1_7ej2a"]
+
+[resource]
+script = ExtResource("1_7ej2a")
+mapIcon = ExtResource("1_4fr05")
+mapName = "Test Level"
+mapLocation = "res://Scenes/Level/level.tscn"

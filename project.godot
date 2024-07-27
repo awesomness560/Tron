@@ -22,6 +22,7 @@ TextChat="*res://Scenes/Autoloads/text_chat.tscn"
 GlobalSteam="*res://Scenes/Multiplayer/steam.tscn"
 SignalBus="*res://Scenes/Autoloads/SignalBus.tscn"
 GlobalVars="*res://Scenes/Autoloads/global_vars.tscn"
+Helper="*res://Scenes/Autoloads/Helper/Helper.tscn"
 
 [display]
 
@@ -76,7 +77,6 @@ grab_console_focus={
 [layer_names]
 
 3d_render/layer_2="trails"
-
 
 [physics]
 
