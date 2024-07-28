@@ -9,6 +9,7 @@ extends MeshInstance3D
 @export var trailSpawnNode : Node3D
 @export var miniMapMarker : MeshInstance3D
 @export var minimapTrail : MeshInstance3D
+@export var minimapTrailWidth := 0.2
 var points := PackedVector3Array() 
 var widths := []
 var oldPos : Vector3
@@ -58,6 +59,7 @@ func appendPoint():
 	widths.append([
 		trailSpawnNode.global_transform.basis.z * width
 	])
+	
 func calculateMesh():
 	if (oldPos - trailSpawnNode.global_position).length() > timeForSpawn:
 		appendPoint()
@@ -100,7 +102,7 @@ func generate_minimapTrail():
 	for i in range(points.size()):
 		var t = float(i) / (points.size() - 1.0)
 		
-		var currWidth = Vector3(0.06,0,0)
+		var currWidth = Vector3(minimapTrailWidth,0,0)
 		
 		var t0 = i / points.size()
 		var t1 = t
