@@ -46,7 +46,7 @@ material = ExtResource("5_jfr8n")
 radius = 0.1
 height = 0.2
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("visuals", "camera", "trail", "minimapCamera")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("visuals", "camera", "trail", "minimapCamera", "minimap")]
 collision_layer = 3
 script = ExtResource("1_n6aeo")
 steeringLimit = 50.0
@@ -54,6 +54,7 @@ visuals = NodePath("light_bike")
 camera = NodePath("ThirdPersonCamera")
 trail = NodePath("Trail2")
 minimapCamera = NodePath("SubViewport/Camera3D")
+minimap = NodePath("CanvasLayer/Minimap")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.3, 0, 0, 0, 0.086, 0, 0, 0, 0.3, 0, 0, 0)
@@ -82,11 +83,14 @@ replication_config = SubResource("SceneReplicationConfig_xxbfm")
 
 [node name="MiniMap" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0686382)
-layers = 2
+layers = 3
 material_override = ExtResource("5_jfr8n")
 mesh = SubResource("ArrayMesh_0i3ih")
 
-[node name="Trail2" type="MeshInstance3D" parent="." node_paths=PackedStringArray("collision", "bikeMesh", "parent", "trailSpawnNode", "miniMapMarker", "minimapTrail")]
+[node name="MiniMapSpawner" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0251066, 0.0801558)
+
+[node name="Trail2" type="MeshInstance3D" parent="." node_paths=PackedStringArray("collision", "bikeMesh", "parent", "trailSpawnNode", "miniMapMarker", "minimapTrail", "minimapSpawner")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0686382)
 material_override = ExtResource("5_jfr8n")
 mesh = SubResource("ArrayMesh_hv28o")
@@ -98,6 +102,7 @@ parent = NodePath("..")
 trailSpawnNode = NodePath("../light_bike/TrailSpawner")
 miniMapMarker = NodePath("../MinimapMarker")
 minimapTrail = NodePath("../MiniMap")
+minimapSpawner = NodePath("../MiniMapSpawner")
 
 [node name="Area3D" type="Area3D" parent="Trail2"]
 disable_mode = 1
@@ -135,6 +140,7 @@ current = true
 follow_viewport_enabled = true
 
 [node name="Minimap" type="TextureRect" parent="CanvasLayer"]
+visible = false
 offset_left = 5.0
 offset_top = 375.0
 offset_right = 297.0

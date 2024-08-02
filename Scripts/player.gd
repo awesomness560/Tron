@@ -12,7 +12,7 @@ class_name Player
 @export var camera : ThirdPersonCamera
 @export var trail : Node3D
 @export var minimapCamera : Camera3D
-
+@export var minimap : Control
 var acceleration : Vector3 = Vector3.ZERO
 var steerAngle : float = 0.0
 var canMove : bool = false
@@ -24,11 +24,12 @@ func _enter_tree():
 func _ready():
 	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	SignalBus.startGame.connect(onStartGame)
-
+	
 func onStartGame(): ##Triggered when the game starts
 	canMove = true
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-
+	minimap.visible = true
+	
 func Respawn():
 	self.position = Vector3(0,0,0)
 	self.velocity = Vector3(0,0,0)

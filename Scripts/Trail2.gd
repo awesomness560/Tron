@@ -10,6 +10,7 @@ extends MeshInstance3D
 @export var miniMapMarker : MeshInstance3D
 @export var minimapTrail : MeshInstance3D
 @export var minimapTrailWidth := 0.2
+@export var minimapSpawner : Node3D
 var points := PackedVector3Array() 
 var widths := []
 var oldPos : Vector3
@@ -59,6 +60,7 @@ func appendPoint():
 	widths.append([
 		trailSpawnNode.global_transform.basis.z * width
 	])
+	minimapPoints.append(minimapSpawner.global_position)
 	
 func calculateMesh():
 	if (oldPos - trailSpawnNode.global_position).length() > timeForSpawn:
@@ -95,24 +97,24 @@ func calculateMesh():
 func generate_minimapTrail():
 	minimapTrail.mesh.clear_surfaces()
 		
-	if points.size() < 2:
+	if minimapPoints.size() < 2:
 			return
 	var uvs := PackedVector2Array()
 	var vertices := PackedVector3Array()
-	for i in range(points.size()):
-		var t = float(i) / (points.size() - 1.0)
+	for i in range(minimapPoints.size()):
+		var t = float(i) / (minimapPoints.size() - 1.0)
 		
 		var currWidth = Vector3(minimapTrailWidth,0,0)
 		
-		var t0 = i / points.size()
+		var t0 = i / minimapPoints.size()
 		var t1 = t
 		
 		uvs.append(Vector2(t0, 0))
-		var localPoint1 : Vector3 = to_local(points[i] + currWidth)
+		var localPoint1 : Vector3 = to_local(minimapPoints[i] + currWidth)
 		vertices.append(localPoint1)
 		
 		uvs.append(Vector2(t1, 1))
-		var localPoint2 : Vector3 = to_local(points[i] - currWidth)
+		var localPoint2 : Vector3 = to_local(minimapPoints[i] - currWidth)
 		vertices.append(localPoint2)
 	var surface_array= []
 	
@@ -143,6 +145,7 @@ func _on_timer_timeout():
 func _delete_trail():
 	points.clear()
 	widths.clear()
+	minimapPoints.clear()
 	mesh.clear_surfaces()
 	collision.shape.set_faces(PackedVector3Array())
 		

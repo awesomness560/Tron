@@ -51,7 +51,7 @@ layers = 2
 material_override = ExtResource("4_rsthi")
 mesh = SubResource("ArrayMesh_iqoiu")
 
-[node name="Trail2" type="MeshInstance3D" parent="." node_paths=PackedStringArray("collision", "bikeMesh", "parent", "trailSpawnNode", "miniMapMarker", "minimapTrail")]
+[node name="Trail2" type="MeshInstance3D" parent="." node_paths=PackedStringArray("collision", "bikeMesh", "parent", "trailSpawnNode", "miniMapMarker", "minimapTrail", "minimapSpawner")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0118874, 0.0859463)
 material_override = ExtResource("4_rsthi")
 mesh = SubResource("ArrayMesh_watfq")
@@ -64,6 +64,7 @@ trailColor = Color(0.594559, 0, 0.254643, 1)
 trailSpawnNode = NodePath("../light_bike/TrailSpawner")
 miniMapMarker = NodePath("../MinimapMarker")
 minimapTrail = NodePath("../MiniMap")
+minimapSpawner = NodePath("MiniMapSpawner")
 
 [node name="Area3D" type="Area3D" parent="Trail2"]
 disable_mode = 1
@@ -74,6 +75,9 @@ monitorable = false
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="Trail2/Area3D"]
 shape = SubResource("ConcavePolygonShape3D_jq0w6")
+
+[node name="MiniMapSpawner" type="Node3D" parent="Trail2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0132192, -0.00579048)
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 
