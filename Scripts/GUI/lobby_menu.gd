@@ -141,9 +141,10 @@ func onMessageSent(msg : String):
 
 func _on_start_game_pressed():
 	Steam.setLobbyJoinable(GlobalSteam.lobbyId, false)
-	startGameRPC.rpc()
+	#startGameRPC.rpc()
+	rpc("startGameRPC")
 
-@rpc("any_peer", "call_local")
+@rpc("any_peer", "call_local", "reliable")
 func startGameRPC():
 	SignalBus.startGame.emit()
 	hide()
