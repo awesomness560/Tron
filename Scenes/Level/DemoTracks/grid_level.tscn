@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://bfg3ll3evn7yp"]
+
+[ext_resource type="Shader" path="res://Assets/Shaders/grid.gdshader" id="1_vhegf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d3n3t"]
+render_priority = 0
+shader = ExtResource("1_vhegf")
+shader_parameter/scale_0 = 750
+shader_parameter/scale_1 = 1
+shader_parameter/line_scale_0 = 0.046
+shader_parameter/line_scale_1 = 0.001
+shader_parameter/color_0 = Color(4, 0, 0, 1)
+shader_parameter/color_1 = Color(0, 0, 0, 1)
+shader_parameter/background_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_eewg3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gup4o"]
+
+[sub_resource type="Environment" id="Environment_iueh0"]
+glow_enabled = true
+glow_blend_mode = 1
+
+[node name="GridLevel" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(84.6416, 0, 0, 0, 1, 0, 0, 0, 82.8616, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_d3n3t")
+mesh = SubResource("BoxMesh_eewg3")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("BoxShape3D_gup4o")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_iueh0")

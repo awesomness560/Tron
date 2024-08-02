@@ -16,17 +16,20 @@ func _ready():
 
 
 func initalizeSteam():
-	var initialize_response: Dictionary = Steam.steamInitEx(false, steamAppId)
+	var initialize_response: Dictionary = Steam.steamInitEx(false, steamAppId, true)
 	print("Did Steam initialize?: %s" % initialize_response)
 	
 	if initialize_response['status'] > 0:
 		print("Failed to initialize Steam. %s" % initialize_response)
+		TextChat.chat.print_message(TextChat.chat.col(Color.RED, "Steam falied to initalize due to " + str(initialize_response)))
+	else:
+		TextChat.chat.print_message(TextChat.chat.col(Color.GREEN, "Steam succesfully intialized"))
 	
 	steamId = Steam.getSteamID()
 	steamUsername = Steam.getPersonaName()
 	isOnline = Steam.loggedOn()
 	
 	print("Username: " + str(steamUsername) + " | Steam ID: " + str(steamId))
-
-func _process(delta):
-	Steam.run_callbacks()
+#
+#func _process(delta):
+	#Steam.run_callbacks()

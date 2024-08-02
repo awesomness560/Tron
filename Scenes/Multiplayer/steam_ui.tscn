@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://d4fv1r0rtvnhx"]
+[gd_scene load_steps=9 format=3 uid="uid://d4fv1r0rtvnhx"]
 
 [ext_resource type="Script" path="res://Scripts/Multiplayer/steam_ui.gd" id="1_66imj"]
 [ext_resource type="PackedScene" uid="uid://bcvcijcet6ueq" path="res://Scenes/Level/DemoTracks/Mcguffin.tscn" id="2_t3nrr"]
 [ext_resource type="PackedScene" uid="uid://dyqqea4pychm1" path="res://Scenes/Level/level.tscn" id="3_bm8v2"]
 [ext_resource type="Script" path="res://Scripts/GUI/lobby_menu.gd" id="4_f6ax5"]
 [ext_resource type="PackedScene" uid="uid://bf4kxlveskol" path="res://Scenes/GUI/lobby_member.tscn" id="4_gyw62"]
+[ext_resource type="PackedScene" uid="uid://b0behaojbgxer" path="res://Scenes/Multiplayer/host_menu.tscn" id="6_jf84d"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8fshg"]
 bg_color = Color(0.337255, 0.337255, 0.337255, 0.584314)
@@ -12,12 +13,13 @@ bg_color = Color(0.337255, 0.337255, 0.337255, 0.584314)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w4u5i"]
 bg_color = Color(0.312466, 0.312466, 0.312466, 1)
 
-[node name="SteamUI" type="CanvasLayer" node_paths=PackedStringArray("lobbyVBox", "lobbyLineEdit", "lobbyMenu", "joinLobbyMenu")]
+[node name="SteamUI" type="CanvasLayer" node_paths=PackedStringArray("lobbyVBox", "lobbyLineEdit", "lobbyMenu", "joinLobbyMenu", "hostMenu")]
 script = ExtResource("1_66imj")
 lobbyVBox = NodePath("JoinLobbyMenu/LobbyContainer/LobbyVBox")
 lobbyLineEdit = NodePath("JoinLobbyMenu/LineEdit")
 lobbyMenu = NodePath("LobbyMenu")
 joinLobbyMenu = NodePath("JoinLobbyMenu")
+hostMenu = NodePath("HostMenu")
 level1 = ExtResource("2_t3nrr")
 testLevel = ExtResource("3_bm8v2")
 
@@ -76,6 +78,7 @@ theme_override_font_sizes/font_size = 40
 text = "Host"
 
 [node name="JoinWithCode" type="Button" parent="JoinLobbyMenu"]
+visible = false
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -88,6 +91,7 @@ grow_vertical = 2
 text = "Join with code"
 
 [node name="LineEdit" type="LineEdit" parent="JoinLobbyMenu"]
+visible = false
 layout_mode = 0
 offset_left = 130.0
 offset_top = 408.0
@@ -160,8 +164,12 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_w4u5i")
 disabled = true
 text = "Start Game"
 
+[node name="HostMenu" parent="." node_paths=PackedStringArray("steamUI") instance=ExtResource("6_jf84d")]
+visible = false
+steamUI = NodePath("..")
+
 [connection signal="pressed" from="JoinLobbyMenu/Refresh" to="." method="_on_refresh_pressed"]
-[connection signal="pressed" from="JoinLobbyMenu/Host" to="." method="host"]
+[connection signal="pressed" from="JoinLobbyMenu/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="JoinLobbyMenu/JoinWithCode" to="." method="_on_join_with_code_pressed"]
 [connection signal="pressed" from="LobbyMenu/Disconnect" to="." method="leaveLobby"]
 [connection signal="pressed" from="LobbyMenu/StartGame" to="LobbyMenu" method="_on_start_game_pressed"]

@@ -1,4 +1,5 @@
 extends CanvasLayer
+class_name SteamUI
 
 var peer : SteamMultiplayerPeer = SteamMultiplayerPeer.new()
 
@@ -6,6 +7,7 @@ var peer : SteamMultiplayerPeer = SteamMultiplayerPeer.new()
 @export var lobbyLineEdit : LineEdit
 @export var lobbyMenu : Control
 @export var joinLobbyMenu : Control
+@export var hostMenu : Control
 #@export var playerSpawner : PlayerSpawner
 #@export var gameSpawner : GameSpawner
 @export var ms : MultiplayerSpawner
@@ -19,19 +21,15 @@ func _ready():
 	Steam.lobby_match_list.connect(onLobbyMatchList)
 	openLobbyList()
 
-func host():
+func host(mapPath : String):
 	peer.create_lobby(SteamMultiplayerPeer.LOBBY_TYPE_PUBLIC)
 	multiplayer.multiplayer_peer = peer
 	
-	#ms.spawn(testLevel)
-	ms.spawn(testLevel)
-	ms.spawn(testGameMode)
-	#var level = testLevel.instantiate()
-	#add_child(level)
-	#gameSpawner.spawn(level1)
+	ms.spawn(mapPath) #TODO: Make move the player spawner out of the map and see if it is possible to spawn the map directly
 
-func spawnLevel(data : PackedScene):
-	var a = data.instantiate()
+func spawnLevel(data : String):
+	#var a = data.instantiate()
+	var a = (load(data) as PackedScene).instantiate()
 	return a
 
 func join(id : int):
@@ -76,6 +74,8 @@ func onLobbyCreated(connect, id):
 		joinLobbyMenu.hide()
 		lobbyMenu.show()
 		SignalBus.joinedLobby.emit()
+		
+		#TextChat.chat.print_message(TextChat.chat.col(Color.GREEN, "Succesfully joined lobby [i]" + str(lobbyId) + "[/i]"))
 
 func onLobbyMatchList(lobbies):
 	for lobby in lobbies:
@@ -103,3 +103,8 @@ func _on_refresh_pressed():
 func _on_join_with_code_pressed():
 	var lobbyCode = lobbyLineEdit.text.to_int()
 	join(lobbyCode)
+
+
+func _on_host_pressed():
+	hostMenu.show()
+	joinLobbyMenu.hide()

@@ -22,6 +22,7 @@ TextChat="*res://Scenes/Autoloads/text_chat.tscn"
 GlobalSteam="*res://Scenes/Multiplayer/steam.tscn"
 SignalBus="*res://Scenes/Autoloads/SignalBus.tscn"
 GlobalVars="*res://Scenes/Autoloads/global_vars.tscn"
+Helper="*res://Scenes/Autoloads/Helper/Helper.tscn"
 
 [display]
 
@@ -30,7 +31,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/third-person-camera/plugin.cfg")
+enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/console_and_textchat/plugin.cfg", "res://addons/third-person-camera/plugin.cfg")
 
 [input]
 
@@ -75,8 +76,7 @@ grab_console_focus={
 
 [layer_names]
 
-3d_render/layer_2="Minimap"
-3d_physics/layer_2="Bikes"
+3d_render/layer_2="trails"
 
 [physics]
 

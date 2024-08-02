@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="MapResource" load_steps=3 format=3 uid="uid://gk3278ov0385"]
+
+[ext_resource type="Texture2D" uid="uid://b2d7b5s01gpg4" path="res://Assets/Sprites/MapIcons/gridLevel.png" id="1_e8lvf"]
+[ext_resource type="Script" path="res://Resources/map_resource.gd" id="2_dgokb"]
+
+[resource]
+script = ExtResource("2_dgokb")
+mapIcon = ExtResource("1_e8lvf")
+mapName = "GridLevel"
+mapLocation = "res://Scenes/Level/grid_level.tscn"

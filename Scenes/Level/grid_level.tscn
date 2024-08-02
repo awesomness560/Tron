@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://b01tfhurohy3w"]
+
+[ext_resource type="Script" path="res://Scripts/Multiplayer/MultiplayerSpawner.gd" id="2_3j4c3"]
+[ext_resource type="PackedScene" uid="uid://dgwr7vg3s8abl" path="res://Scenes/player.tscn" id="3_0pssj"]
+[ext_resource type="PackedScene" uid="uid://bfg3ll3evn7yp" path="res://Scenes/Level/DemoTracks/grid_level.tscn" id="3_3w2lv"]
+
+[node name="Level" type="Node"]
+
+[node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath(".")
+script = ExtResource("2_3j4c3")
+playerScene = ExtResource("3_0pssj")
+
+[node name="GridLevel" parent="." instance=ExtResource("3_3w2lv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.50457, 0)

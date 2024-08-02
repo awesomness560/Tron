@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0aftx1nq7cqg"
-path.s3tc="res://.godot/imported/default-avatar-medium.png-b6adaef888913267fee5383ab425688a.s3tc.ctex"
+uid="uid://hs7n3luwnvl0"
+path.s3tc="res://.godot/imported/testLevel.png-4d59ea737b57315c174c8a146f63b085.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/Sprites/default-avatar-medium.png"
-dest_files=["res://.godot/imported/default-avatar-medium.png-b6adaef888913267fee5383ab425688a.s3tc.ctex"]
+source_file="res://Assets/Sprites/MapIcons/testLevel.png"
+dest_files=["res://.godot/imported/testLevel.png-4d59ea737b57315c174c8a146f63b085.s3tc.ctex"]
 
 [params]
 
