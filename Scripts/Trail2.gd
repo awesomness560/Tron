@@ -29,7 +29,6 @@ func _ready():
 	
 func _process(delta):
 	calculateMesh()
-	generate_minimapTrail()
 	if self.position.y < -70:
 		self.position = Vector3(0,0,0)
 		self.velocity = Vector3(0,0,0)
@@ -66,7 +65,7 @@ func calculateMesh():
 	if (oldPos - trailSpawnNode.global_position).length() > timeForSpawn:
 		appendPoint()
 		oldPos = trailSpawnNode.global_position
-	
+		generate_minimapTrail()
 		mesh.clear_surfaces()
 		
 		#If there are no more than two points, don't render it

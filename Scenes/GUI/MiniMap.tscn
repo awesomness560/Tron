@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://hkuganvms4oy"]
+
+[sub_resource type="Environment" id="Environment_7ls2y"]
+background_mode = 1
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_fioqk"]
+viewport_path = NodePath("SubViewport")
+
+[node name="MiniMap" type="Node"]
+
+[node name="SubViewport" type="SubViewport" parent="."]
+handle_input_locally = false
+scaling_3d_scale = 1.19
+canvas_cull_mask = 4293918723
+size = Vector2i(256, 256)
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.45999, 0)
+top_level = true
+cull_mask = 2
+environment = SubResource("Environment_7ls2y")
+current = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="Minimap" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -292.0
+offset_bottom = 295.0
+grow_horizontal = 0
+texture = SubResource("ViewportTexture_fioqk")
+stretch_mode = 3

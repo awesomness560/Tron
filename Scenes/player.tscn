@@ -24,9 +24,6 @@ properties/2/path = NodePath("light_bike:rotation")
 properties/2/spawn = true
 properties/2/replication_mode = 1
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_0i3ih"]
-resource_local_to_scene = true
-
 [sub_resource type="ArrayMesh" id="ArrayMesh_hv28o"]
 resource_local_to_scene = true
 
@@ -45,6 +42,9 @@ resource_local_to_scene = true
 material = ExtResource("5_jfr8n")
 radius = 0.1
 height = 0.2
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_0i3ih"]
+resource_local_to_scene = true
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("visuals", "camera", "trail", "minimapCamera", "minimap")]
 collision_layer = 3
@@ -87,14 +87,8 @@ replication_config = SubResource("SceneReplicationConfig_xxbfm")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 
-[node name="MiniMap" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0686382)
-layers = 3
-material_override = ExtResource("5_jfr8n")
-mesh = SubResource("ArrayMesh_0i3ih")
-
 [node name="MiniMapSpawner" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0251066, 0.0801558)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0294294, 0.08)
 
 [node name="Trail2" type="MeshInstance3D" parent="." node_paths=PackedStringArray("collision", "bikeMesh", "parent", "trailSpawnNode", "miniMapMarker", "minimapTrail", "minimapSpawner")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0686382)
@@ -107,7 +101,8 @@ bikeMesh = NodePath("../light_bike")
 parent = NodePath("..")
 trailSpawnNode = NodePath("../light_bike/TrailSpawner")
 miniMapMarker = NodePath("../MinimapMarker")
-minimapTrail = NodePath("../MiniMap")
+minimapTrail = NodePath("../MiniMapTrail/MiniMap")
+minimapTrailWidth = 0.05
 minimapSpawner = NodePath("../MiniMapSpawner")
 
 [node name="Area3D" type="Area3D" parent="Trail2"]
@@ -158,6 +153,15 @@ stretch_mode = 3
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.654691, 0)
 layers = 2
 mesh = SubResource("SphereMesh_ffgcs")
+
+[node name="MiniMapTrail" type="Node3D" parent="."]
+
+[node name="MiniMap" type="MeshInstance3D" parent="MiniMapTrail"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0686382)
+layers = 3
+material_override = ExtResource("5_jfr8n")
+mesh = SubResource("ArrayMesh_0i3ih")
+skeleton = NodePath("../..")
 
 [connection signal="timeout" from="Timer" to="Trail2" method="_on_timer_timeout"]
 [connection signal="body_entered" from="Trail2/Area3D" to="Trail2" method="_on_area_3d_body_entered"]
