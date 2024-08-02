@@ -15,7 +15,7 @@ var points := PackedVector3Array()
 var widths := []
 var oldPos : Vector3
 var minimapPoints := PackedVector3Array()
-
+var minimapWidths := []
 func _ready():
 	material_override.set_albedo(trailColor)
 	material_override.emission = trailColor
@@ -60,7 +60,8 @@ func appendPoint():
 		trailSpawnNode.global_transform.basis.z * width
 	])
 	minimapPoints.append(minimapSpawner.global_position)
-	
+	minimapWidths.append([minimapSpawner.global_transform.basis.x * minimapTrailWidth])
+
 func calculateMesh():
 	if (oldPos - trailSpawnNode.global_position).length() > timeForSpawn:
 		appendPoint()
@@ -103,7 +104,7 @@ func generate_minimapTrail():
 	for i in range(minimapPoints.size()):
 		var t = float(i) / (minimapPoints.size() - 1.0)
 		
-		var currWidth = Vector3(minimapTrailWidth,0,0)
+		var currWidth = minimapWidths[i][0]
 		
 		var t0 = i / minimapPoints.size()
 		var t1 = t

@@ -55,6 +55,7 @@ func _physics_process(delta):
 		velocity = velocity.normalized() * max_speed
 	move_and_slide()
 	minimapCamera.global_position = self.global_position + Vector3(0,5,0)
+	
 func apply_friction(delta):
 	if velocity.length() < 0.2 and acceleration.length() == 0:
 		velocity.x = 0
