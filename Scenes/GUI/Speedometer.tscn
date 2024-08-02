@@ -42,32 +42,35 @@ frequency = 0.0922
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_nkjt3"]
 noise = SubResource("FastNoiseLite_6av2w")
 
-[node name="Speedometer" type="Node2D" node_paths=PackedStringArray("sprite", "text", "timer")]
+[node name="Speedometer" type="Node2D" node_paths=PackedStringArray("sprite", "text")]
 script = ExtResource("1_w6wp0")
 sprite = NodePath("AnimatedSprite2D")
-text = NodePath("Count")
-timer = NodePath("SpeedometerTimer")
+text = NodePath("AnimatedSprite2D/Count")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-position = Vector2(1081, 70)
-scale = Vector2(2.17188, 2.17188)
+position = Vector2(1052.25, 98.7499)
+scale = Vector2(3.07031, 3.07031)
 sprite_frames = SubResource("SpriteFrames_rwuja")
 
-[node name="Count" type="Label" parent="."]
-offset_left = 1062.0
-offset_top = 52.0
-offset_right = 1102.0
-offset_bottom = 119.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+[node name="Count" type="Label" parent="AnimatedSprite2D"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -41.0
+offset_top = -54.5
+offset_right = -23.0
+offset_bottom = -9.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1.44392e-06, 0.367486, 0.503563, 1)
 theme_override_fonts/font = SubResource("SystemFont_6ps2r")
-theme_override_font_sizes/font_size = 48
-text = "0"
+theme_override_font_sizes/font_size = 24
 horizontal_alignment = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="SpeedometerTimer" type="Timer" parent="."]
-wait_time = 10.0
+vertical_alignment = 1
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(1082, 77)
@@ -75,5 +78,3 @@ scale = Vector2(0.341797, 0.351562)
 color = Color(0.466181, 0.466181, 0.466181, 1)
 energy = 1.39
 texture = SubResource("NoiseTexture2D_nkjt3")
-
-[connection signal="timeout" from="SpeedometerTimer" to="." method="_on_speedometer_timer_timeout"]

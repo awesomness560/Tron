@@ -146,6 +146,7 @@ func _delete_trail():
 	points.clear()
 	widths.clear()
 	minimapPoints.clear()
+	minimapWidths.clear()
 	mesh.clear_surfaces()
 	collision.shape.set_faces(PackedVector3Array())
 		
